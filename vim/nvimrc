@@ -1,0 +1,334 @@
+" Eli's vimrc ಠ_ಠ
+set nocompatible
+let mapleader = ','
+let g:python_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
+" Install vim plug if it doesn't exist
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+" Plugins {
+    call plug#begin('~/.config/nvim/plugged')
+        Plug 'airblade/vim-gitgutter'               " Show git changes
+        Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
+        Plug 'altercation/vim-colors-solarized'     " Solarized stuff
+        Plug 'benekastah/neomake'                   " Syntax checking
+        Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
+        Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
+        Plug 'ervandew/supertab'                    " Supertab!
+        Plug 'haya14busa/incsearch.vim'             " Better searching
+        Plug 'jiangmiao/auto-pairs'                 " Auto pair parens and brackets
+        Plug 'jszakmeister/vim-togglecursor'        " Toggle cursor in insert mode
+        Plug 'klen/python-mode'                     " Python specific features
+        Plug 'luochen1990/rainbow'                  " Rainbow parenthesis
+        Plug 'majutsushi/tagbar'                    " Browsing tags and stuff
+        Plug 'mbbill/undotree'                      " Undo tree
+        Plug 'mhinz/vim-startify'                   " Nice start screen
+        Plug 'morhetz/gruvbox'                      " Really nice colorscheme
+        Plug 'nathanaelkane/vim-indent-guides'      " Indent Guides
+        Plug 'powerline/fonts'                      " Powerline fonts for airline
+        Plug 'rking/ag.vim'                         " Silver searcher searching
+        Plug 'schickling/vim-bufonly'               " Close all buffers except one
+        Plug 'scrooloose/nerdtree'                  " File tree viewer
+        Plug 'tpope/vim-commentary'                 " Comment all the things
+        Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
+        Plug 'tpope/vim-sensible'                   " Sensible vim settings
+        Plug 'tpope/vim-surround'                   " Surround things with things
+        Plug 'vim-airline/vim-airline'              " Cool ass statusline
+        Plug 'vim-airline/vim-airline-themes'       " Airline themes
+        Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
+        " Setting vim specific autocomplete
+        if has('nvim')
+            Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+        else
+            Plug 'Shougo/neocomplete.vim'           " Autocomplete for vim
+        endif
+        Plug 'davidhalter/jedi-vim'                 " Python completion
+        " This has to be loaded after everything else
+        Plug 'ryanoasis/vim-devicons'               " Nice dev icons
+    call plug#end()
+
+    " vim-bufonly {
+        nnoremap <Leader>bo :Bufonly<CR>
+    " }
+
+    " vim-devicons {
+        autocmd FileType nerdtree setlocal nolist
+    " }
+
+    " neomake {
+        " Mainly for python only right now, could expand to other things
+        let g:neomake_python_enabled_makers = ['flake8']
+        nnoremap <Leader>zz :Neomake flake8<CR>
+    " }
+
+    " python-mode {
+        let g:pymode_rope_completion=0
+        let g:pymode_rope_completion_bind = ''
+        let g:pymode_rope_complete_on_dot = 0
+        let g:pymode_lint=0
+        let g:pymode_folding=0
+        let g:pymode_virtualenv=0
+    " }
+
+    " incsearch.vim {
+        " Set it so that we actually use the plugin
+        map /  <Plug>(incsearch-forward)
+        map ?  <Plug>(incsearch-backward)
+        map g/ <Plug>(incsearch-stay)
+        " Set it so that ugly search highlights automagically go away
+        set hlsearch
+        let g:incsearch#auto_nohlsearch = 1
+        map n  <Plug>(incsearch-nohl-n)
+        map N  <Plug>(incsearch-nohl-N)
+        map *  <Plug>(incsearch-nohl-*)
+        map #  <Plug>(incsearch-nohl-#)
+        map g* <Plug>(incsearch-nohl-g*)
+        map g# <Plug>(incsearch-nohl-g#)
+    " }
+
+    " tagbar {
+        let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+        let g:tagbar_autofocus=1
+        let g:tagbar_autoclose=1
+        nnoremap <Leader>tt :TagbarToggle<CR>
+    " }
+
+    " indent-guides {
+        let g:indent_guides_start_level = 2
+        let g:indent_guides_guide_size = 1
+        let g:indent_guides_enable_on_vim_startup = 1
+    " }
+
+    " deoplete / neocomplete {
+        if has('nvim')
+            let g:deoplete#enable_at_startup = 1
+            let g:deoplete#enable_smart_case = 2
+        else
+            let g:neocomplete#enable_at_startup = 1
+            let g:neocomplete#enable_smart_case = 2
+        endif
+    " }
+
+    " Jedi-Vim {
+        autocmd FileType python setlocal completeopt-=preview
+    " }
+
+    " vim-airline {
+        if has("gui_running")
+            let g:airline_theme='gruvbox'
+        else
+            let g:airline_theme='solarized'
+        endif
+        let g:airline_powerline_fonts = 1
+        let g:airline#extensions#tabline#enabled = 1
+        let g:airline_left_sep='›'  " Slightly fancier than '>'
+        let g:airline_right_sep='‹' " Slightly fancier than '<'
+    " }
+    "
+    " NERDTree {
+        map <C-e> :NERDTreeToggle<CR>
+        map <Leader>e :NERDTreeFind<CR>
+        map <Leader>nt :NERDTreeFind<CR>
+
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '^\.ropeproject$']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=0
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=1
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
+    " }
+
+    " UndoTree {
+        nnoremap <Leader>u :UndotreeToggle<CR>
+        let g:undotree_SetFocusWhenToggle=1
+    " }
+
+    " Git Fugitive {
+        let has_fugitive=1
+    " }
+
+    " rainbow {
+        let g:rainbow_active = 1
+    " }
+" }
+
+" General {
+    " Allow a trigger for the background
+    set background=dark " Dark backgrounds cause we're emo
+    function! ToggleBG()
+        let s:tbg = &background
+        " Inversion
+        if s:tbg == 'dark'
+            set background=light
+        else
+            set background=dark
+        endif
+    endfunction
+    nnoremap <Leader>bg :call ToggleBG()<CR>
+
+    filetype plugin indent on       " Automatically detect file types.
+    syntax on                       " Syntax highlighting
+    set mouse=a                     " Automatically enable mouse usage
+    set mousehide                   " Hide the mouse cursor while typing
+    set encoding=utf8
+    scriptencoding utf-8
+
+    set clipboard=unnamed           " Enable clipboard from OSX
+    set viewoptions=folds,options,cursor,unix,slash
+    set virtualedit=onemore         " Allow for cursor beyond last character
+    set history=1000                " Store a ton of history
+    set nospell                     " Turn spellcheck off
+    set hidden                      " Allow buffer switching without saving
+
+    " Set it to the first line when editing a git commit message
+    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+
+    " Restore cursor to file position in previous editing session
+    function! ResCur()
+        if line("'\"") <= line("$")
+            silent! normal! g`"
+            return 1
+        endif
+    endfunction
+
+    augroup resCur
+        autocmd!
+        autocmd BufWinEnter * call ResCur()
+    augroup END
+
+    set backup
+    set backupdir=$TMPDIR,$TEMP,$TMP,.
+    if has('persistent_undo')
+        set undofile
+        set undolevels=1000
+        set undoreload=10000
+    endif
+" }
+
+
+" UI Options {
+    if has("gui_running")
+        color gruvbox
+        set guifont=Inconsolata-g\ for\ Powerline\ Nerd\ Font:h12
+        set guioptions-=r
+        set guioptions-=l
+        set guioptions-=R
+        set guioptions-=L
+    elseif filereadable(expand('~/.config/nvim/plugged/vim-colors-solarized/colors/solarized.vim'))
+        let g:solarized_termcolors=256
+        let g:solarized_termtrans=1
+        let g:solarized_contrast='normal'
+        let g:solarized_visibility='normal'
+        color solarized
+    endif
+
+    set splitbelow
+    set splitright
+    set tabpagemax=15   " Only show 15 tabs
+    set showmode        " Display the current mode
+
+    highlight clear SignColumn
+    highlight clear LineNr
+
+    if has('cmdline_info')
+        set ruler
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
+        set showcmd
+    endif
+
+    if has('statusline')
+        set laststatus=2
+        set statusline=%<%f\                    " Filename
+        set statusline+=%w%h%m%r                " Options
+        if has_fugitive == 1
+            set statusline+=%{fugitive#statusline()}
+        endif
+        set statusline+=\ [%{&ff}/%Y]           " Filetype
+        set statusline+=\ [%{getcwd()}]         " Current dir
+        set statusline+=%=%-14.(%l,%cV%)\ %p%%  " Right aligned file nav info
+    endif
+
+    set backspace=indent,eol,start                  " Working backspace
+    set number                                      " Line numbers are on
+    set showmatch                                   " Show matching brackets/parenthesis
+    set incsearch                                   " Find as you type search
+    set ignorecase                                  " Case insensitive search
+    set smartcase                                   " Case sensitive when uc present
+    set wildmenu                                    " Show a list of completions for commands
+    set wildmode=list:longest,full                  " Command <Tab> completion, list matches,then longest part, then all.
+    set whichwrap=b,s,h,l,<,>,[,]                   " Backspace and cursor keys wrap too
+    set scrolljump=5                                " Lines to scroll when cursor leaves screen
+    set scrolloff=3                                 " Minimum lines to keep above/below cursor
+    set list
+    set listchars=tab:›\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
+    set foldmethod=indent
+    set foldlevelstart=99
+    autocmd FileType python let &colorcolumn=80
+    " Disable the annoying bells
+    set noerrorbells visualbell t_vb=
+    if has('autocmd')
+        autocmd GUIEnter * set visualbell t_vb=
+    endif
+" }
+
+" Formatting {
+    set nowrap          " No wrapping
+    set autoindent      " Indent at the same level of the prev line
+    set shiftwidth=4    " Use indents of 4 spaces
+    set expandtab       " Tabs are spaces
+    set tabstop=4       " An indentation every four columns
+    set softtabstop=4   " Let backspace delete indent
+    set nojoinspaces    " Prevents inserting two spaces after punctuation on a join (J)
+    function! StripTrailingWhitespace()
+        let _s=@/
+        let l = line(".")
+        let c = line(".")
+        %s/\s\+$//e
+        let @/=_s
+        call cursor(l, c)
+    endfunction
+    " Deletes trailing whitespace
+    nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
+    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
+    autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+" }
+
+" Key Mappings {
+    " Easier moving in tabs and windows
+    nnoremap <C-J> <C-W>j   " Move up
+    nnoremap <C-K> <C-W>k   " Move down
+    nnoremap <C-L> <C-W>l   " Move left
+    nnoremap <C-H> <C-W>h   " Move right
+
+    " Easier moving in tabs
+    map <S-H> gT
+    map <S-L> gt
+
+    " Change working directory to that of the current file
+    cmap cwd lcd %:p:h
+    cmap cd. lcd %:p:h
+
+    " Adjust viewports to the same size
+    map <Leader>= <C-w>=
+
+    " Easy horizontal scrolling
+    map zl zL
+    map zh zH
+
+    " Easier indenting
+    vmap q <gv
+    vmap <TAB> >gv
+" }
+
