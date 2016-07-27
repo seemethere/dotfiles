@@ -1,0 +1,17 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.dotfiles: ''
+    ~/.config/nvim/init.vim:
+        create: true
+        path: vim/nvimrc
+    ~/.vimrc: vim/nvimrc
+    ~/.nvimrc: vim/nvimrc
+    ~/.zshrc: zsh/zshrc
+
+- shell:
+  - [git submodule update --init --recursive, Installing submodules]
