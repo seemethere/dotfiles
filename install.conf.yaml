@@ -12,6 +12,11 @@
     ~/.vimrc: vim/nvimrc
     ~/.nvimrc: vim/nvimrc
     ~/.zshrc: zsh/zshrc
+    ~/.gitignore_global: git/gitignore_global
+    ~/.ptpython/config.py:
+        create: true
+        path: ptpython/config.py
+    ~/.ideavimrc: idea/ideavimrc
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
