@@ -5,9 +5,9 @@ export TERM="xterm-256color"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+  export EDITOR='vim'
 else
-  export EDITOR='nvim'
+  export EDITOR='vim'
 fi
 
 # Aliases
@@ -24,19 +24,20 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 [[ -d ~/.zplug ]] || {
     git clone https://github.com/b4b4r07/zplug ~/.zplug
 }
-source ~/.zplug/zplug
+source ~/.zplug/init.zsh
+# Hacky way to load oh-my-zsh libs
+zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh", nice:-19
 # Install plugins
 zplug "plugins/pyenv",      from:oh-my-zsh, if:"which pyenv"
 zplug "plugins/pip",        from:oh-my-zsh, if:"which pip"
 zplug "plugins/brew",       from:oh-my-zsh, if:"which brew"
 zplug "plugins/git",        from:oh-my-zsh, if:"which git"
-zplug "plugins/osx",        from:oh-my-zsh, if:[[ "$OSTYPE" == "darwin"* ]]
 zplug "plugins/extract",    from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "rimraf/k"
 # Theme!
-zplug "denysdovhan/spaceship-zsh-theme", of:spaceship.zsh-theme
+zplug "denysdovhan/spaceship-zsh-theme"
 # Actually install plugins, prompt user input
 if ! zplug check --verbose; then
     printf "Install zplug plugins? [y/N]: "
@@ -51,6 +52,5 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
-fortune -s -n 300 | cowsay
 # source fzf if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
