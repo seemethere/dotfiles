@@ -1,8 +1,6 @@
 " Eli's vimrc ಠ_ಠ
 set nocompatible
 let mapleader = ','
-let g:python_host_prog = '/usr/local/bin/python'
-let g:python3_host_prog = '/usr/local/bin/python3'
 
 function! DoRemote(arg)
   UpdateRemotePlugins
@@ -11,6 +9,12 @@ endfunction
 " Install vim plug if it doesn't exist
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
+endif
+
+if empty(glob('~/.config/nvim/autoload/plug.vim'))
+  silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
@@ -40,28 +44,23 @@ endif
         Plug 'scrooloose/nerdtree'                  " File tree viewer
         Plug 'tpope/vim-commentary'                 " Comment all the things
         Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
-        Plug 'tpope/vim-sensible'                   " Sensible vim settings
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'vim-airline/vim-airline-themes'       " Airline themes
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
+        Plug 'fatih/vim-go', { 'do': ':GoInstallBinaries' }
         " Setting vim specific autocomplete
         if has('nvim')
-            Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+            Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
         else
+            Plug 'tpope/vim-sensible'               " Sensible vim settings
             Plug 'Shougo/neocomplete.vim'           " Autocomplete for vim
         endif
         Plug 'davidhalter/jedi-vim'                 " Python completion
-        " This has to be loaded after everything else
-        Plug 'ryanoasis/vim-devicons'               " Nice dev icons
     call plug#end()
 
     " vim-bufonly {
         nnoremap <Leader>bo :Bufonly<CR>
-    " }
-
-    " vim-devicons {
-        autocmd FileType nerdtree setlocal nolist
     " }
 
     " neomake {
@@ -184,7 +183,7 @@ endif
     set encoding=utf8
     scriptencoding utf-8
 
-    set clipboard=unnamed           " Enable clipboard from OSX
+    set clipboard+=unnamed          " Enable clipboard from OSX
     set viewoptions=folds,options,cursor,unix,slash
     set virtualedit=onemore         " Allow for cursor beyond last character
     set history=1000                " Store a ton of history
@@ -207,12 +206,23 @@ endif
         autocmd BufWinEnter * call ResCur()
     augroup END
 
-    set backup
-    set backupdir=$TMPDIR,$TEMP,$TMP,.
-    if has('persistent_undo')
+    " Sets central temp file location, to prevent local default behavior.
+    if isdirectory($HOME . '/.vim/.tmp') == 0
+        :silent !mkdir -m 700 -p ~/.vim/.tmp > /dev/null 2>&1
+    endif
+
+    set backupdir=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
+    set directory=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
+
+    if exists("+undofile")
+        " undofile -- This allows you to use undos after exiting and 
+        "             restarting. NOTE: only present in 7.3+
+        "             :help undo-persistence
+        if isdirectory( $HOME . '/.vim/.undo' ) == 0
+            :silent !mkdir -m 700 -p ~/.vim/.undo > /dev/null 2>&1
+        endif
+        set undodir=~/.vim/.undo
         set undofile
-        set undolevels=1000
-        set undoreload=10000
     endif
 " }
 
@@ -300,7 +310,7 @@ endif
     endfunction
     " Deletes trailing whitespace
     nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
-    autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    autocmd FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
     " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
     autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 " }
