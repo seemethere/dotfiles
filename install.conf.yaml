@@ -17,6 +17,7 @@
         create: true
         path: ptpython/config.py
     ~/.ideavimrc: idea/ideavimrc
+    ~/.aliases: aliases
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
