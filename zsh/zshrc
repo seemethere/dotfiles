@@ -1,13 +1,13 @@
 # Path stuff
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
+export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
 export PATH=/usr/local/lib:$PATH
 export TERM="xterm-256color"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 else
-  export EDITOR='vim'
+  export EDITOR='nvim'
 fi
 
 # Aliases
@@ -47,10 +47,7 @@ if ! zplug check --verbose; then
 fi
 zplug load --verbose
 
-# Pyenv Stuff
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-
 # source fzf if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+source ~/.aliases
