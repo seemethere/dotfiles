@@ -1,3 +1,7 @@
+# Set history size
+HISTSIZE=1000
+SAVEHIST=1000
+
 # Path stuff
 export PATH="$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki"
 export PATH=/usr/local/lib:$PATH
@@ -14,7 +18,6 @@ fi
 alias nv="nvim"
 alias py="ptpython"
 alias pyclean='find . -name "*.pyc" -delete'
-alias k='k -h'
 alias c='clear'
 alias grep='grep --color=auto'
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -28,16 +31,12 @@ source ~/.zplug/init.zsh
 # Hacky way to load oh-my-zsh libs
 zplug "robbyrussell/oh-my-zsh", use:"lib/*.zsh", nice:-19
 # Install plugins
-zplug "plugins/pyenv",      from:oh-my-zsh, if:"which pyenv"
 zplug "plugins/pip",        from:oh-my-zsh, if:"which pip"
-zplug "plugins/brew",       from:oh-my-zsh, if:"which brew"
 zplug "plugins/git",        from:oh-my-zsh, if:"which git"
-zplug "plugins/extract",    from:oh-my-zsh
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting"
-zplug "rimraf/k"
 # Theme!
-zplug "denysdovhan/spaceship-zsh-theme"
+zplug "denysdovhan/spaceship-zsh-theme", as:theme
 # Actually install plugins, prompt user input
 if ! zplug check --verbose; then
     printf "Install zplug plugins? [y/N]: "
@@ -54,3 +53,6 @@ source ~/.aliases
 if [[ -f ~/.aliases-local ]];then
     source ~/.aliases-local
 fi
+
+# Source pyenv init if it exists
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
