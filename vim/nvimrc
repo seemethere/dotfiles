@@ -2,9 +2,13 @@
 set nocompatible
 let mapleader = ','
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
+if !empty(glob('/usr/local/bin/python2'))
+    let g:python_host_prog='/usr/local/bin/python2'
+endif
+
+if !empty(glob('/usr/loca/bin/python3'))
+    let g:python3_host_prog='/usr/local/bin/python3'
+endif
 
 " Install vim plug if it doesn't exist
 if empty(glob('~/.vim/autoload/plug.vim'))
@@ -33,7 +37,6 @@ endif
         Plug 'jszakmeister/vim-togglecursor'        " Toggle cursor in insert mode
         Plug 'klen/python-mode'                     " Python specific features
         Plug 'luochen1990/rainbow'                  " Rainbow parenthesis
-        Plug 'majutsushi/tagbar'                    " Browsing tags and stuff
         Plug 'mbbill/undotree'                      " Undo tree
         Plug 'mhinz/vim-startify'                   " Nice start screen
         Plug 'morhetz/gruvbox'                      " Really nice colorscheme
@@ -67,6 +70,8 @@ endif
         " Mainly for python only right now, could expand to other things
         let g:neomake_python_enabled_makers = ['flake8']
         nnoremap <Leader>zz :Neomake flake8<CR>
+        " Run neomake on write
+        autocmd! BufWritePost * Neomake
     " }
 
     " python-mode {
@@ -215,7 +220,7 @@ endif
     set directory=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
 
     if exists("+undofile")
-        " undofile -- This allows you to use undos after exiting and 
+        " undofile -- This allows you to use undos after exiting and
         "             restarting. NOTE: only present in 7.3+
         "             :help undo-persistence
         if isdirectory( $HOME . '/.vim/.undo' ) == 0
