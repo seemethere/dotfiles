@@ -51,3 +51,6 @@ zplug load --verbose
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 source ~/.aliases
+if [[ -f ~/.aliases-local ]];then
+    source ~/.aliases-local
+fi
