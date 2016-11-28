@@ -5,7 +5,7 @@ unamestr=`uname`
 if [[ $unamestr == 'Darwin' ]];then 
     colorflag="-G"
 else
-    colorflag="--color"
+    colorflag="--color=auto"
 fi
 
 alias py="ptpython"
