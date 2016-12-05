@@ -6,7 +6,7 @@ if !empty(glob('/usr/local/bin/python2'))
     let g:python_host_prog='/usr/local/bin/python2'
 endif
 
-if !empty(glob('/usr/loca/bin/python3'))
+if !empty(glob('/usr/local/bin/python3'))
     let g:python3_host_prog='/usr/local/bin/python3'
 endif
 
@@ -99,13 +99,6 @@ endif
         map g# <Plug>(incsearch-nohl-g#)
     " }
 
-    " tagbar {
-        let g:tagbar_ctags_bin='/usr/local/bin/ctags'
-        let g:tagbar_autofocus=1
-        let g:tagbar_autoclose=1
-        nnoremap <Leader>tt :TagbarToggle<CR>
-    " }
-
     " indent-guides {
         let g:indent_guides_start_level = 2
         let g:indent_guides_guide_size = 1
@@ -127,11 +120,12 @@ endif
     " }
 
     " vim-airline {
-        if has("gui_running")
-            let g:airline_theme='gruvbox'
-        else
-            let g:airline_theme='solarized'
-        endif
+        " if has("gui_running")
+        "     let g:airline_theme='gruvbox'
+        " else
+        "     let g:airline_theme='solarized'
+        " endif
+        let g:airline_theme='gruvbox'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline_left_sep='›'  " Slightly fancier than '>'
@@ -234,19 +228,20 @@ endif
 
 " UI Options {
     if has("gui_running")
-        color gruvbox
+        " color gruvbox
         set guifont=Inconsolata-g\ for\ Powerline\ Nerd\ Font:h12
         set guioptions-=r
         set guioptions-=l
         set guioptions-=R
         set guioptions-=L
-    elseif filereadable(expand('~/.config/nvim/plugged/vim-colors-solarized/colors/solarized.vim'))
-        let g:solarized_termcolors=256
-        let g:solarized_termtrans=1
-        let g:solarized_contrast='normal'
-        let g:solarized_visibility='normal'
-        color solarized
+    " elseif filereadable(expand('~/.config/nvim/plugged/vim-colors-solarized/colors/solarized.vim'))
+        " let g:solarized_termcolors=256
+        " let g:solarized_termtrans=1
+        " let g:solarized_contrast='normal'
+        " let g:solarized_visibility='normal'
+        " color solarized
     endif
+    color gruvbox
 
     set splitbelow
     set splitright
