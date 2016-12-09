@@ -18,7 +18,6 @@
         path: ptpython/config.py
     ~/.ideavimrc: idea/ideavimrc
     ~/.aliases: aliases
-    ~/.tmux.conf: tmux/tmux.conf
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
