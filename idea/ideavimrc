@@ -1,2 +1,6 @@
 set surround
 set clipboard+=unnamed
+
+" Easy horizontal scrolling
+map zl zL
+map zh zH
