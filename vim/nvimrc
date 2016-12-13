@@ -249,6 +249,9 @@ endif
 
     highlight clear SignColumn
     highlight clear LineNr
+    " Enable transparency
+    highlight Normal ctermbg=none
+    highlight NonText ctermbg=none
 
     if has('cmdline_info')
         set ruler
