@@ -1,12 +1,3 @@
-# Set history size
-HISTSIZE=1000
-if (( ! EUID ));then
-    HISTFILE=~/.zsh_history_root
-else
-    HISTFILE=~/.zsh_history
-fi
-SAVEHIST=1000
-
 # UNCOMMENT TO BENCHMARK
 # BENCHMARK=1 && zmodload zsh/zprof
 
@@ -38,6 +29,10 @@ source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", from:github, defer:0
 # Up -> History search! Who knew it wasn't a built in?
 zplug "lib/key-bindings", from:oh-my-zsh
+# History defaults
+zplug "lib/history", from:oh-my-zsh
+# Adds useful aliases for things dealing with directories
+zplug "lib/directories", from:oh-my-zsh
 # gst, gco, gc -> All the git shortcut goodness
 zplug "plugins/git", from:oh-my-zsh, if:"hash git"
 # Prune git branches super easily
