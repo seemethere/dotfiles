@@ -2,7 +2,6 @@
 # BENCHMARK=1 && zmodload zsh/zprof
 
 # Path stuff
-export PATH="/usr/local/lib:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:$PATH"
 export TERM="xterm-256color"
 
 local MAIN_EDITOR="vim"
