@@ -17,13 +17,18 @@ else
     export EDITOR="$MAIN_EDITOR"
 fi
 
+source ~/.aliases
+if [[ -f ~/.aliases-local ]];then
+    source ~/.aliases-local
+fi
+
 # ================================================================
 # Plugins
 # ================================================================
 # load zplug if it doesn't exist
-[[ -d ~/.zplug ]] || {
+if [[ ! -d ~/.zplug ]];then
     git clone https://github.com/b4b4r07/zplug ~/.zplug
-}
+fi
 source ~/.zplug/init.zsh
 # Async for zsh, used by pure
 zplug "mafredri/zsh-async", from:github, defer:0
@@ -57,10 +62,6 @@ zplug load
 # source fzf if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source ~/.aliases
-if [[ -f ~/.aliases-local ]];then
-    source ~/.aliases-local
-fi
 
 # Source pyenv init if it exists
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
