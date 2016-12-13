@@ -2,7 +2,7 @@
 
 # Detect which `ls` flavor is in use
 unamestr=`uname`
-if [[ $unamestr == 'Darwin' ]];then 
+if [[ $unamestr == 'Darwin' ]];then
     colorflag="-G"
 else
     colorflag="--color=auto"
@@ -23,3 +23,5 @@ alias ls="command ls ${colorflag}"
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+
+alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
