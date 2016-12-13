@@ -11,9 +11,9 @@ export TERM="xterm-256color"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 else
-  export EDITOR='nvim'
+    export EDITOR='nvim'
 fi
 
 # Aliases
@@ -31,11 +31,11 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 }
 source ~/.zplug/init.zsh
 # Hacky way to load oh-my-zsh libs
-zplug "robbyrussell/oh-my-zsh",            from:github, use:"lib/*.zsh", nice:-19, ignore:oh-my-zsh.sh
+zplug "robbyrussell/oh-my-zsh",            from:github, use:"lib/*.zsh", defer:0, ignore:oh-my-zsh.sh
 # Install plugins
 zplug "plugins/git", from:oh-my-zsh, if:"hash git"
 zplug "Seinh/git-prune", from:github, if:"hash git"
-zplug "zsh-users/zsh-syntax-highlighting", from:github, nice:10
+zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:3
 # Theme!
 zplug "denysdovhan/spaceship-zsh-theme",   from:github, as:theme
 # Actually install plugins, prompt user input
@@ -45,7 +45,8 @@ if ! zplug check --verbose; then
         echo; zplug install
     fi
 fi
-zplug load --verbose
+
+zplug load
 
 # source fzf if it exists
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
