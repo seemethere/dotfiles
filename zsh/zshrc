@@ -31,13 +31,13 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 }
 source ~/.zplug/init.zsh
 # Hacky way to load oh-my-zsh libs
-zplug "robbyrussell/oh-my-zsh",            from:github, use:"lib/*.zsh", defer:0, ignore:oh-my-zsh.sh
+zplug "mafredri/zsh-async", from:github, defer:0
 # Install plugins
 zplug "plugins/git", from:oh-my-zsh, if:"hash git"
 zplug "Seinh/git-prune", from:github, if:"hash git"
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:3
 # Theme!
-zplug "denysdovhan/spaceship-zsh-theme",   from:github, as:theme
+zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
 # Actually install plugins, prompt user input
 if ! zplug check --verbose; then
     printf "Install zplug plugins? [y/N]: "
@@ -67,3 +67,6 @@ fi
 
 # added by travis gem
 [ -f /Users/eli9558/.travis/travis.sh ] && source /Users/eli9558/.travis/travis.sh
+
+# added by travis gem
+[ -f /Users/eliasuriegas/.travis/travis.sh ] && source /Users/eliasuriegas/.travis/travis.sh
