@@ -3,17 +3,19 @@ set nocompatible
 let mapleader = ','
 let neovim2_venv=expand('~/venvs/neovim2/bin/python')
 let neovim3_venv=expand('~/venvs/neovim3/bin/python')
+let homebrew_python2='/usr/local/bin/python2'
+let homebrew_python3='/usr/local/bin/python3'
 
 if !empty(neovim2_venv)
     let g:python_host_prog=neovim2_venv
-elseif !empty(glob('/usr/local/bin/python2'))
-    let g:python_host_prog='/usr/local/bin/python2'
+elseif !empty(homebrew_python2)
+    let g:python_host_prog=homebrew_python2
 endif
 
 if !empty(neovim3_venv)
     let g:python3_host_prog=neovim3_venv
-elseif !empty(glob('/usr/local/bin/python3'))
-    let g:python3_host_prog='/usr/local/bin/python3'
+elseif !empty(homebrew_python3)
+    let g:python3_host_prog=homebrew_python3
 endif
 
 " Install vim plug if it doesn't exist
@@ -127,11 +129,6 @@ endif
     " }
 
     " vim-airline {
-        " if has("gui_running")
-        "     let g:airline_theme='gruvbox'
-        " else
-        "     let g:airline_theme='solarized'
-        " endif
         let g:airline_theme='gruvbox'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
