@@ -1,6 +1,7 @@
 " Eli's vimrc ಠ_ಠ
-set nocompatible
-let mapleader = ','
+" TODO: Think about splitting this up into separate files
+" set nocompatible
+let g:mapleader = ','
 let neovim2_venv=expand('~/venvs/neovim2/bin/python')
 let neovim3_venv=expand('~/venvs/neovim3/bin/python')
 let homebrew_python2='/usr/local/bin/python2'
@@ -36,6 +37,7 @@ endif
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
         Plug 'altercation/vim-colors-solarized'     " Solarized stuff
+        Plug 'benekastah/neomake'                   " Syntax checking
         Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
         Plug 'ervandew/supertab'                    " Supertab!
@@ -58,7 +60,6 @@ endif
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'vim-airline/vim-airline-themes'       " Airline themes
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
-        Plug 'w0rp/ale'
         " Setting vim specific autocomplete
         if has('nvim')
             Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -69,16 +70,16 @@ endif
         Plug 'davidhalter/jedi-vim'                 " Python completion
     call plug#end()
 
-    " ale {
-        let g:ale_sign_error = '⨉'
-        let g:ale_sign_warning = '⚠'
-        nmap <silent> <Leader>ne <Plug>(ale_previous_wrap)
-        nmap <silent> <Leader>pe <Plug>(ale_next_wrap)
-        let g:ale_linters = {'python': ['flake8'],}
-    " }
-
     " vim-bufonly {
         nnoremap <Leader>bo :Bufonly<CR>
+    " }
+
+    " neomake {
+        " Mainly for python only right now, could expand to other things
+        let g:neomake_python_enabled_makers = ['flake8']
+        nnoremap <Leader>zz :Neomake flake8<CR>
+        " Run neomake on write
+        autocmd! BufWritePost * Neomake
     " }
 
     " python-mode {
@@ -124,7 +125,7 @@ endif
 
     " Jedi-Vim {
         autocmd FileType python setlocal completeopt-=preview
-        let g:jedi#show_call_signatures = "0"
+        let g:jedi#show_call_signatures = '0'
     " }
 
     " vim-airline {
@@ -140,13 +141,13 @@ endif
         map <Leader>e :NERDTreeFind<CR>
         map <Leader>nt :NERDTreeFind<CR>
 
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '^\.ropeproject$']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=0
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
-        let NERDTreeKeepTreeInNewTab=1
+        let g:NERDTreeShowBookmarks=1
+        let g:NERDTreeIgnore=['\.py[cd]$', '\~$', '\.swo$', '\.swp$', '^\.git$', '^\.hg$', '^\.svn$', '\.bzr$', '^\.ropeproject$']
+        let g:NERDTreeChDirMode=0
+        let g:NERDTreeQuitOnOpen=0
+        let g:NERDTreeMouseMode=2
+        let g:NERDTreeShowHidden=1
+        let g:NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
 
@@ -156,7 +157,7 @@ endif
     " }
 
     " Git Fugitive {
-        let has_fugitive=1
+        let g:has_fugitive=1
     " }
 
     " rainbow {
@@ -170,7 +171,7 @@ endif
     function! ToggleBG()
         let s:tbg = &background
         " Inversion
-        if s:tbg == 'dark'
+        if s:tbg ==# 'dark'
             set background=light
         else
             set background=dark
@@ -262,7 +263,7 @@ endif
         set laststatus=2
         set statusline=%<%f\                    " Filename
         set statusline+=%w%h%m%r                " Options
-        if has_fugitive == 1
+        if g:has_fugitive == 1
             set statusline+=%{fugitive#statusline()}
         endif
         set statusline+=\ [%{&ff}/%Y]           " Filetype
@@ -302,12 +303,12 @@ endif
     set softtabstop=4   " Let backspace delete indent
     set nojoinspaces    " Prevents inserting two spaces after punctuation on a join (J)
     function! StripTrailingWhitespace()
-        let _s=@/
-        let l = line(".")
-        let c = line(".")
+        let l:_s=@/
+        let l:l = line('.')
+        let l:c = line('.')
         %s/\s\+$//e
-        let @/=_s
-        call cursor(l, c)
+        let @/=l:_s
+        call cursor(l:l, l:c)
     endfunction
     " Deletes trailing whitespace
     nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
