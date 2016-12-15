@@ -31,6 +31,8 @@ fi
 source ~/.zplug/init.zsh
 # Async for zsh, used by pure
 zplug "mafredri/zsh-async", from:github, defer:0
+# Load completion library for those sweet [tab] squares
+zplug "lib/completion", from:oh-my-zsh
 # Up -> History search! Who knew it wasn't a built in?
 zplug "lib/key-bindings", from:oh-my-zsh
 # History defaults
@@ -73,3 +75,7 @@ fi
 
 # added by travis gem
 [ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+
+export WORKON_HOME="$HOME/venvs"
+export PROJECT_HOME="$HOME/projects"
+source /usr/local/bin/virtualenvwrapper.sh
