@@ -36,7 +36,6 @@ endif
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
         Plug 'altercation/vim-colors-solarized'     " Solarized stuff
-        Plug 'benekastah/neomake'                   " Syntax checking
         Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
         Plug 'ervandew/supertab'                    " Supertab!
@@ -59,6 +58,7 @@ endif
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'vim-airline/vim-airline-themes'       " Airline themes
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
+        Plug 'w0rp/ale'
         " Setting vim specific autocomplete
         if has('nvim')
             Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -69,16 +69,16 @@ endif
         Plug 'davidhalter/jedi-vim'                 " Python completion
     call plug#end()
 
-    " vim-bufonly {
-        nnoremap <Leader>bo :Bufonly<CR>
+    " ale {
+        let g:ale_sign_error = '⨉'
+        let g:ale_sign_warning = '⚠'
+        nmap <silent> <Leader>ne <Plug>(ale_previous_wrap)
+        nmap <silent> <Leader>pe <Plug>(ale_next_wrap)
+        let g:ale_linters = {'python': ['flake8'],}
     " }
 
-    " neomake {
-        " Mainly for python only right now, could expand to other things
-        let g:neomake_python_enabled_makers = ['flake8']
-        nnoremap <Leader>zz :Neomake flake8<CR>
-        " Run neomake on write
-        autocmd! BufWritePost * Neomake
+    " vim-bufonly {
+        nnoremap <Leader>bo :Bufonly<CR>
     " }
 
     " python-mode {
