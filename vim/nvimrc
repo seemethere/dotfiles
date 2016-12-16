@@ -2,21 +2,15 @@
 " TODO: Think about splitting this up into separate files
 " set nocompatible
 let g:mapleader = ','
-let neovim2_venv=expand('~/venvs/neovim2/bin/python')
-let neovim3_venv=expand('~/venvs/neovim3/bin/python')
-let homebrew_python2='/usr/local/bin/python2'
-let homebrew_python3='/usr/local/bin/python3'
+let g:neovim2_venv=expand('~/venvs/neovim2/bin/python')
+let g:neovim3_venv=expand('~/venvs/neovim3/bin/python')
 
-if !empty(neovim2_venv)
-    let g:python_host_prog=neovim2_venv
-elseif !empty(homebrew_python2)
-    let g:python_host_prog=homebrew_python2
+if !empty(glob(g:neovim2_venv))
+    let g:python_host_prog=g:neovim2_venv
 endif
 
-if !empty(neovim3_venv)
-    let g:python3_host_prog=neovim3_venv
-elseif !empty(homebrew_python3)
-    let g:python3_host_prog=homebrew_python3
+if !empty(glob(g:neovim3_venv))
+    let g:python3_host_prog=g:neovim3_venv
 endif
 
 " Install vim plug if it doesn't exist
@@ -79,7 +73,9 @@ endif
         let g:neomake_python_enabled_makers = ['flake8']
         nnoremap <Leader>zz :Neomake flake8<CR>
         " Run neomake on write
-        autocmd! BufWritePost * Neomake
+        augroup neomakeonsave
+            autocmd! BufWritePost * Neomake
+        augroup END
     " }
 
     " python-mode {
@@ -194,7 +190,9 @@ endif
     set hidden                      " Allow buffer switching without saving
 
     " Set it to the first line when editing a git commit message
-    au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+    augroup gcommit
+        au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+    augroup END
 
     " Restore cursor to file position in previous editing session
     function! ResCur()
@@ -217,7 +215,7 @@ endif
     set backupdir=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
     set directory=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
 
-    if exists("+undofile")
+    if exists('+undofile')
         " undofile -- This allows you to use undos after exiting and
         "             restarting. NOTE: only present in 7.3+
         "             :help undo-persistence
@@ -231,7 +229,7 @@ endif
 
 
 " UI Options {
-    if has("gui_running")
+    if has('gui_running')
         set guioptions-=r
         set guioptions-=l
         set guioptions-=R
@@ -286,11 +284,15 @@ endif
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
     set foldmethod=indent
     set foldlevelstart=99
-    autocmd FileType python let &colorcolumn=80
+    augroup pycolumn
+        autocmd FileType python let &colorcolumn=80
+    augroup END
     " Disable the annoying bells
     set noerrorbells visualbell t_vb=
     if has('autocmd')
-        autocmd GUIEnter * set visualbell t_vb=
+        augroup stopannoyingbells
+            autocmd GUIEnter * set visualbell t_vb=
+        augroup END
     endif
 " }
 
@@ -312,9 +314,11 @@ endif
     endfunction
     " Deletes trailing whitespace
     nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
-    autocmd FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
-    " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
-    autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+    augroup setformattingrules
+        autocmd FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+        " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
+        autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
+    augroup END
 " }
 
 " Key Mappings {
