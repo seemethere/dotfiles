@@ -5,6 +5,10 @@ let g:mapleader = ','
 let g:neovim2_venv=expand('~/venvs/neovim2/bin/python')
 let g:neovim3_venv=expand('~/venvs/neovim3/bin/python')
 
+augroup vimrc
+    autocmd!
+augroup END
+
 if !empty(glob(g:neovim2_venv))
     let g:python_host_prog=g:neovim2_venv
 endif
@@ -17,13 +21,13 @@ endif
 if empty(expand('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+  autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 if empty(expand('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
+  autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 " Plugins {
@@ -73,9 +77,7 @@ endif
         let g:neomake_python_enabled_makers = ['flake8']
         nnoremap <Leader>zz :Neomake flake8<CR>
         " Run neomake on write
-        augroup neomakeonsave
-            autocmd! BufWritePost * Neomake
-        augroup END
+        autocmd! vimrc BufWritePost * Neomake
     " }
 
     " python-mode {
@@ -120,7 +122,7 @@ endif
     " }
 
     " Jedi-Vim {
-        autocmd FileType python setlocal completeopt-=preview
+        autocmd vimrc FileType python setlocal completeopt-=preview
         let g:jedi#show_call_signatures = '0'
     " }
 
@@ -284,15 +286,11 @@ endif
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:.  " Highlight problematic whitespace
     set foldmethod=indent
     set foldlevelstart=99
-    augroup pycolumn
-        autocmd FileType python let &colorcolumn=80
-    augroup END
+    autocmd vimrc FileType python let &colorcolumn=80
     " Disable the annoying bells
     set noerrorbells visualbell t_vb=
     if has('autocmd')
-        augroup stopannoyingbells
-            autocmd GUIEnter * set visualbell t_vb=
-        augroup END
+        autocmd vimrc GUIEnter * set visualbell t_vb=
     endif
 " }
 
@@ -314,11 +312,9 @@ endif
     endfunction
     " Deletes trailing whitespace
     nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
-    augroup setformattingrules
-        autocmd FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
-        " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
-        autocmd FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
-    augroup END
+    autocmd vimrc FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
+    autocmd vimrc FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 " }
 
 " Key Mappings {
