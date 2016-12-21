@@ -43,3 +43,5 @@ Thumbs.db
 
 venv
 .venv
+
+__pycache__
