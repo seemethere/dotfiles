@@ -4,6 +4,10 @@
 # Path stuff
 export TERM="xterm-256color"
 
+if [[ -f ~/.cargo/env ]]; then
+    source ~/.cargo/env
+fi
+
 local MAIN_EDITOR="vim"
 if [[ $(hash nvim 2>/dev/null) != 0 ]];then
     MAIN_EDITOR="nvim"
