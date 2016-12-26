@@ -237,6 +237,9 @@ endif
         set guioptions-=R
         set guioptions-=L
     endif
+    if has("nvim")
+        set termguicolors
+    endif
     color gruvbox
 
     set splitbelow
