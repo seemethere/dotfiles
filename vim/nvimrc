@@ -34,7 +34,6 @@ endif
     call plug#begin('~/.config/nvim/plugged')
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
-        Plug 'altercation/vim-colors-solarized'     " Solarized stuff
         Plug 'benekastah/neomake'                   " Syntax checking
         Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
@@ -42,7 +41,6 @@ endif
         Plug 'haya14busa/incsearch.vim'             " Better searching
         Plug 'jiangmiao/auto-pairs'                 " Auto pair parens and brackets
         Plug 'jszakmeister/vim-togglecursor'        " Toggle cursor in insert mode
-        Plug 'klen/python-mode'                     " Python specific features
         Plug 'luochen1990/rainbow'                  " Rainbow parenthesis
         Plug 'mbbill/undotree'                      " Undo tree
         Plug 'mhinz/vim-startify'                   " Nice start screen
@@ -56,7 +54,6 @@ endif
         Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
-        Plug 'vim-airline/vim-airline-themes'       " Airline themes
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
         " Setting vim specific autocomplete
         if has('nvim')
@@ -65,7 +62,16 @@ endif
             Plug 'tpope/vim-sensible'               " Sensible vim settings
             Plug 'Shougo/neocomplete.vim'           " Autocomplete for vim
         endif
-        Plug 'davidhalter/jedi-vim'                 " Python completion
+
+        " Python specific {
+            Plug 'klen/python-mode', {'for': 'python'}
+            Plug 'davidhalter/jedi-vim', {'for': 'python'}
+        " }
+
+        " TOML {
+            Plug 'cespare/vim-toml', {'for': 'toml'}
+        " }
+
     call plug#end()
 
     " vim-bufonly {
@@ -238,6 +244,7 @@ endif
         set guioptions-=L
     endif
     if has("nvim")
+        " True color support
         set termguicolors
     endif
     color gruvbox
