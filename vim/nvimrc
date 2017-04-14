@@ -4,6 +4,7 @@
 let g:mapleader = ','
 let g:neovim2_venv=expand('~/venvs/neovim2/bin/python')
 let g:neovim3_venv=expand('~/venvs/neovim3/bin/python')
+let g:plugins_location=expand('~/.config/nvim/plugged')
 
 augroup vimrc
     autocmd!
@@ -31,7 +32,7 @@ if empty(expand('~/.config/nvim/autoload/plug.vim'))
 endif
 
 " Plugins {
-    call plug#begin('~/.config/nvim/plugged')
+    call plug#begin(g:plugins_location)
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
         Plug 'benekastah/neomake'                   " Syntax checking
@@ -66,6 +67,16 @@ endif
         " Python specific {
             Plug 'klen/python-mode', {'for': 'python'}
             Plug 'davidhalter/jedi-vim', {'for': 'python'}
+        " }
+
+        " Go specific {
+            Plug 'fatih/vim-go', {'for': 'go'}
+            let editor_name='vim'
+            if has('nvim')
+                let editor_name='nvim'
+            endif
+            let gocode_script=g:plugins_location . '/gocode/'. editor_name .'/symlink.sh'
+            Plug 'nsf/gocode', {'for': 'go', 'rtp': 'vim', 'do': gocode_script }
         " }
 
         " TOML {

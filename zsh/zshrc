@@ -8,6 +8,10 @@ if [[ -f ~/.cargo/env ]]; then
     source ~/.cargo/env
 fi
 
+if [[ -d ~/go/bin ]]; then
+    export PATH="$HOME/go/bin:$PATH"
+fi
+
 local MAIN_EDITOR="vim"
 if [[ $(hash nvim 2>/dev/null) != 0 ]];then
     MAIN_EDITOR="nvim"
