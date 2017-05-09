@@ -18,17 +18,16 @@ if !empty(glob(g:neovim3_venv))
     let g:python3_host_prog=g:neovim3_venv
 endif
 
-" Install vim plug if it doesn't exist
-if empty(expand('~/.vim/autoload/plug.vim'))
+if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 if empty(expand('~/.config/nvim/autoload/plug.vim'))
   silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd vimrc VimEnter * PlugInstall | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Plugins {
@@ -54,6 +53,7 @@ endif
         Plug 'tpope/vim-commentary'                 " Comment all the things
         Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
         Plug 'tpope/vim-surround'                   " Surround things with things
+        Plug 'tpope/vim-sleuth'
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
         " Setting vim specific autocomplete
