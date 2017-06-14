@@ -78,6 +78,10 @@ endif
             let gocode_script=g:plugins_location . '/gocode/'. editor_name .'/symlink.sh'
             Plug 'nsf/gocode', {'for': 'go', 'rtp': 'vim', 'do': gocode_script }
         " }
+        "
+        " Powershell specific {
+            Plug 'PProvost/vim-ps1', {'for': 'ps1'}
+        " }
 
         " TOML {
             Plug 'cespare/vim-toml', {'for': 'toml'}
