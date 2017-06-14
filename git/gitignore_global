@@ -37,7 +37,7 @@ ehthumbs.db
 Thumbs.db
 
 *~
-.ropeproject
+.ropeproject/
 .python-version
 .idea
 
