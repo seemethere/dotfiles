@@ -32,10 +32,11 @@ endif
 
 " Plugins {
     call plug#begin(g:plugins_location)
+        Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
+        Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
         Plug 'benekastah/neomake'                   " Syntax checking
-        Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
         Plug 'ervandew/supertab'                    " Supertab!
         Plug 'haya14busa/incsearch.vim'             " Better searching
@@ -52,10 +53,9 @@ endif
         Plug 'scrooloose/nerdtree'                  " File tree viewer
         Plug 'tpope/vim-commentary'                 " Comment all the things
         Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
+        Plug 'tpope/vim-sleuth'                     " Detect tabs / spaces
         Plug 'tpope/vim-surround'                   " Surround things with things
-        Plug 'tpope/vim-sleuth'
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
-        Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
         " Setting vim specific autocomplete
         if has('nvim')
             Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -76,7 +76,8 @@ endif
                 let editor_name='nvim'
             endif
             let gocode_script=g:plugins_location . '/gocode/'. editor_name .'/symlink.sh'
-            Plug 'nsf/gocode', {'for': 'go', 'rtp': 'vim', 'do': gocode_script }
+            Plug 'nsf/gocode', {'for': 'go', 'rtp': editor_name, 'do': gocode_script } " Go autocompletion
+            Plug 'godoctor/godoctor.vim', {'for': 'go'} " Gocode refactoring tool
         " }
         "
         " Powershell specific {
