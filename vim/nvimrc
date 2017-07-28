@@ -88,6 +88,10 @@ endif
             Plug 'cespare/vim-toml', {'for': 'toml'}
         " }
 
+        " Powershell {
+            Plug 'PProvost/vim-ps1', {'for': 'ps1'}
+        " }
+
     call plug#end()
 
     " vim-bufonly {
