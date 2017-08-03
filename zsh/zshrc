@@ -85,7 +85,7 @@ fi
 
 export WORKON_HOME="$HOME/venvs"
 export PROJECT_HOME="$HOME/projects"
-source /usr/local/bin/virtualenvwrapper.sh
+[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
 
 # I can have comments at the end of my commands too :D
 setopt interactivecomments
