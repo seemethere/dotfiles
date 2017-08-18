@@ -25,3 +25,13 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+vagrant-kill-all() {
+    for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
+        vagrant destroy -f "$i"
+    done
+}
+
+jsonlint() {
+    docker run --rm -v "$(pwd)":/v -w /v sahsu/docker-jsonlint jsonlint "$@"
+}
