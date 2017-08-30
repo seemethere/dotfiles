@@ -35,3 +35,7 @@ vagrant-kill-all() {
 jsonlint() {
     docker run --rm -v "$(pwd)":/v -w /v sahsu/docker-jsonlint jsonlint "$@"
 }
+
+docker-upstream-commit() {
+    git log | grep -B 1 "Component: $1" | head -1 | awk '{print $2}'
+}
