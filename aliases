@@ -39,3 +39,7 @@ jsonlint() {
 docker-upstream-commit() {
     git log | grep -B 1 "Component: $1" | head -1 | awk '{print $2}'
 }
+
+commits-since() {
+    git log --no-merges "$1"...HEAD
+}
