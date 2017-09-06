@@ -43,3 +43,7 @@ docker-upstream-commit() {
 commits-since() {
     git log --no-merges "$1"...HEAD
 }
+
+pull-jenkins-failures() {
+    curl -fsSL "$1" | grep "FAIL:" | grep -v " --- " | sort -r
+}
