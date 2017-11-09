@@ -47,3 +47,32 @@ commits-since() {
 pull-jenkins-failures() {
     curl -fsSL "$1" | grep "FAIL:" | grep -v " --- " | sort -r
 }
+
+# Run a docker container with a shell
+docker-here() {
+    shell="bash"
+    if [[ "$1" =~ .*alpine.* ]]; then
+        shell="sh"
+    fi
+    docker run --rm -it -v "$(pwd):/v" -w /v "$1" "$shell"
+}
+
+alpine() {
+    docker-here alpine:latest
+}
+
+xenial() {
+    docker-here ubuntu:xenial
+}
+
+jessie() {
+    docker-here debian:jessie
+}
+
+fedora() {
+    docker-here fedora:latest
+}
+
+centos() {
+    docker-here centos:latest
+}
