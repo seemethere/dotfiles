@@ -50,11 +50,10 @@ pull-jenkins-failures() {
 
 # Run a docker container with a shell
 docker-here() {
-    shell="bash"
-    if [[ "$1" =~ .*alpine.* ]]; then
-        shell="sh"
-    fi
-    docker run --rm -it -v "$(pwd):/v" -w /v "$1" "$shell"
+    docker run --rm -it \
+        -v "$(pwd):/v" -w /v \
+        "$1" \ # Image goes here
+        sh -c 'if [ -e /bin/bash ]; then /bin/bash; else /bin/sh; fi'
 }
 
 alpine() {
@@ -75,4 +74,8 @@ fedora() {
 
 centos() {
     docker-here centos:latest
+}
+
+busybox() {
+    docker-here busybox:latest
 }
