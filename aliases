@@ -52,7 +52,7 @@ pull-jenkins-failures() {
 docker-here() {
     docker run --rm -it \
         -v "$(pwd):/v" -w /v \
-        "$1" \ # Image goes here
+        "$1" \
         sh -c 'if [ -e /bin/bash ]; then /bin/bash; else /bin/sh; fi'
 }
 
