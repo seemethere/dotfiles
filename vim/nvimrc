@@ -51,6 +51,7 @@ endif
         Plug 'rking/ag.vim'                         " Silver searcher searching
         Plug 'schickling/vim-bufonly'               " Close all buffers except one
         Plug 'scrooloose/nerdtree'                  " File tree viewer
+        Plug 'tpope/vim-abolish'
         Plug 'tpope/vim-commentary'                 " Comment all the things
         Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
         Plug 'tpope/vim-sleuth'                     " Detect tabs / spaces
@@ -65,7 +66,6 @@ endif
         endif
 
         " Python specific {
-            Plug 'klen/python-mode', {'for': 'python'}
             Plug 'davidhalter/jedi-vim', {'for': 'python'}
         " }
 
