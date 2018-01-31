@@ -41,6 +41,8 @@ if [[ ! -d ~/.zplug ]];then
     git clone https://github.com/b4b4r07/zplug ~/.zplug
 fi
 source ~/.zplug/init.zsh
+# Let zplug manage zplug
+zplug 'zplug/zplug', hook-build:'zplug --self-manage'
 # Async for zsh, used by pure
 zplug "mafredri/zsh-async", from:github, defer:0
 # Load completion library for those sweet [tab] squares
