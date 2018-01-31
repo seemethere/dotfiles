@@ -320,6 +320,8 @@ endif
     if has('autocmd')
         autocmd vimrc GUIEnter * set visualbell t_vb=
     endif
+
+    au TermOpen * setlocal nonumber norelativenumber
 " }
 
 " Formatting {
