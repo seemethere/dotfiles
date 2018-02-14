@@ -342,7 +342,7 @@ endif
     endfunction
     " Deletes trailing whitespace
     nnoremap <Leader>sw :call StripTrailingWhitespace()<CR>
-    autocmd vimrc FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
+    autocmd vimrc FileType c,cpp,java,php,javascript,puppet,python,rust,twig,xml,yml,perl,sql,groovy,sh autocmd BufWritePre <buffer> :call StripTrailingWhitespace()
     " Auto put things to 2 spaces when doing haskell, puppet, ruby, yml
     autocmd vimrc FileType haskell,puppet,ruby,yml setlocal expandtab shiftwidth=2 softtabstop=2
 " }
