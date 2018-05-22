@@ -1,0 +1,2 @@
+[ -S "$SSH_AUTH_SOCK" -a -z "${SSH_AUTH_SOCK##/tmp/ssh-*}" ] &&
+    ln -fs $SSH_AUTH_SOCK $HOME/.ssh/auth_sock

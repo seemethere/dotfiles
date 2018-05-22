@@ -19,6 +19,7 @@
     ~/.ideavimrc: idea/ideavimrc
     ~/.aliases: aliases
     ~/.tmux.conf: tmux/tmux.conf
+    ~/.ssh/rc: ssh/rc
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
