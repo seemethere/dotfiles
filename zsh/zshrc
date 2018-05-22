@@ -1,20 +1,27 @@
 # UNCOMMENT TO BENCHMARK
 # BENCHMARK=1 && zmodload zsh/zprof
+#
+
+source_if_exists() {
+    if [[ -f $1 ]]; then
+        source $1;
+    fi
+}
+
+path_if_exists() {
+    if [[ -d $1 ]]; then
+        export PATH="$1:$PATH"
+    fi
+}
 
 # Path stuff
 export TERM="xterm-256color"
 
-if [[ -f ~/.cargo/env ]]; then
-    source ~/.cargo/env
-fi
+source_if_exists ~/.cargo/env
 
-if [[ -d /usr/local/go/bin ]]; then
-    export PATH="/usr/local/go/bin:$PATH"
-fi
+path_if_exists /usr/local/go/bin
 
-if [[ -d ~/go/bin ]]; then
-    export PATH="$HOME/go/bin:$PATH"
-fi
+path_if_exists ~/go/bin
 
 local MAIN_EDITOR="vim"
 if [[ $(hash nvim 2>/dev/null) != 0 ]];then
@@ -28,10 +35,8 @@ else
     export EDITOR="$MAIN_EDITOR"
 fi
 
-source ~/.aliases
-if [[ -f ~/.aliases-local ]];then
-    source ~/.aliases-local
-fi
+source_if_exists ~/.aliases
+source_if_exists ~/.aliases-local
 
 # ================================================================
 # Plugins
@@ -75,23 +80,24 @@ zplug load
 # Sourcing stuff if they're there
 # ================================================================
 # source fzf if it exists
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source_if_exists ~/.fzf.zsh
+source_if_exists /usr/share/zsh/site-functions/fzf
 
 
 # Source pyenv init if it exists
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv > /dev/null 2>&1; then eval "$(pyenv init -)"; fi
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"
 fi
 
 # added by travis gem
-[ -f ~/.travis/travis.sh ] && source ~/.travis/travis.sh
+source_if_exists ~/.travis/travis.sh
 
 export WORKON_HOME="$HOME/venvs"
 export PROJECT_HOME="$HOME/projects"
-[ -f /usr/local/bin/virtualenvwrapper.sh ] && source /usr/local/bin/virtualenvwrapper.sh
+source_if_exists /usr/local/bin/virtualenvwrapper.sh
 
 # I can have comments at the end of my commands too :D
 setopt interactivecomments
