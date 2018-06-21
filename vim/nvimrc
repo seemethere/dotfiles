@@ -90,8 +90,14 @@ endif
             Plug 'cespare/vim-toml', {'for': 'toml'}
         " }
 
-        " Powershell {
-            Plug 'PProvost/vim-ps1', {'for': 'ps1'}
+        " Rust {
+            Plug 'rust-lang/rust.vim', {'for': 'rust'}
+            Plug 'racer-rust/vim-racer', {'for': 'rust'}
+            let g:racer_cmd = substitute(system('which racer'), '\n', '', '')
+            au FileType rust nmap gd <Plug>(rust-def)
+            au FileType rust nmap gs <Plug>(rust-def-split)
+            au FileType rust nmap gx <Plug>(rust-def-vertical)
+            au FileType rust nmap <leader>gd <Plug>(rust-doc)
         " }
 
     call plug#end()
