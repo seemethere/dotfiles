@@ -36,6 +36,7 @@ endif
         Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
         Plug 'airblade/vim-gitgutter'               " Show git changes
         Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
+        Plug 'amix/vim-zenroom2'
         Plug 'benekastah/neomake'                   " Syntax checking
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
         Plug 'ervandew/supertab'                    " Supertab!
@@ -57,6 +58,9 @@ endif
         Plug 'tpope/vim-sleuth'                     " Detect tabs / spaces
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
+
+        Plug 'junegunn/goyo.vim'
+        Plug 'junegunn/limelight.vim'
         " Setting vim specific autocomplete
         if has('nvim')
             Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

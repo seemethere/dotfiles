@@ -26,6 +26,7 @@ alias egrep='egrep --color=auto'
 
 alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 alias vup="vagrant destroy -f && vagrant up && vagrant ssh"
+alias vdown="vagrant destroy -f"
 
 vagrant-kill-all() {
     for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
