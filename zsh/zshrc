@@ -28,6 +28,11 @@ if [[ $(hash nvim 2>/dev/null) != 0 ]];then
     MAIN_EDITOR="nvim"
 fi
 
+if [[ -d /usr/share/zsh/vendor-completions ]]; then
+    fpath=(/usr/share/zsh/vendor-completions $fpath)
+    autoload -Uz compinit && compinit -i
+fi
+
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
     export EDITOR="$MAIN_EDITOR"
