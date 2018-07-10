@@ -80,3 +80,7 @@ centos() {
 busybox() {
     docker-here busybox:latest
 }
+
+add-upstream-remote() {
+    git remote add upstream "git@github.com:$1"
+}
