@@ -39,6 +39,7 @@ endif
         Plug 'amix/vim-zenroom2'
         Plug 'benekastah/neomake'                   " Syntax checking
         Plug 'ctrlpvim/ctrlp.vim'                   " Fuzzy file finder
+        Plug 'ekalinin/Dockerfile.vim'              " Dockerfile stuff
         Plug 'ervandew/supertab'                    " Supertab!
         Plug 'haya14busa/incsearch.vim'             " Better searching
         Plug 'jiangmiao/auto-pairs'                 " Auto pair parens and brackets
