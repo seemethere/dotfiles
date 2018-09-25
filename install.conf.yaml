@@ -20,6 +20,8 @@
     ~/.aliases: aliases
     ~/.tmux.conf: tmux/tmux.conf
     ~/.ssh/rc: ssh/rc
+    ~/.bin: bin/
+    ~/.worldclock.zones: worldclock.zones
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]

@@ -19,6 +19,8 @@ export TERM="xterm-256color"
 
 source_if_exists ~/.cargo/env
 
+path_if_exists ~/.bin
+
 path_if_exists /usr/local/go/bin
 
 path_if_exists ~/go/bin
