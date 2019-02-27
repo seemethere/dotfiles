@@ -59,6 +59,7 @@ endif
         Plug 'tpope/vim-sleuth'                     " Detect tabs / spaces
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
+        Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
 
         Plug 'junegunn/goyo.vim'
         Plug 'junegunn/limelight.vim'
@@ -78,6 +79,7 @@ endif
         " Go specific {
             Plug 'fatih/vim-go', {'for': 'go'}
             let g:go_metalinter_autosave = 0
+            let g:go_def_mode = 'godef'
             let editor_name='vim'
             if has('nvim')
                 let editor_name='nvim'
@@ -101,6 +103,11 @@ endif
             au FileType rust nmap gs <Plug>(rust-def-split)
             au FileType rust nmap gx <Plug>(rust-def-vertical)
             au FileType rust nmap <leader>gd <Plug>(rust-doc)
+        " }
+
+        " vim-tmux-navigator {
+            " Disable tmux navigator when zooming the Vim pane
+            let g:tmux_navigator_disable_when_zoomed = 1
         " }
 
     call plug#end()
