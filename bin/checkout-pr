@@ -7,5 +7,11 @@ if [ -z "${NUM}" ]; then
 fi
 REMOTE=${REMOTE:-upstream}
 
-git fetch "${REMOTE}" pull/${NUM}/head:${REMOTE}/pr/${NUM}
-git checkout ${REMOTE}/pr/${NUM}
+git checkout -q "${REMOTE}/master"
+git branch -Dqf "${REMOTE}/pr/${NUM}" >/dev/null 2>/dev/null
+if ! git fetch -q "${REMOTE}" "pull/${NUM}/head:${REMOTE}/pr/${NUM}" >/dev/null 2>/dev/null; then
+    echo "ERROR: PR #${NUM} doesn't exist for remote '${REMOTE}'"
+    exit 1
+fi
+git checkout -q "${REMOTE}/pr/${NUM}"
+echo "PR #${NUM} checked out for remote '${REMOTE}'"
