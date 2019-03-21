@@ -111,3 +111,6 @@ source_if_exists /usr/local/bin/virtualenvwrapper.sh
 
 # I can have comments at the end of my commands too :D
 setopt interactivecomments
+
+# Hey this is so dumb that I have to add this
+export DISABLE_WARN_OUTSIDE_CONTAINER=1
