@@ -50,14 +50,6 @@ pull-jenkins-failures() {
     curl -fsSL "$1" | grep "FAIL:" | grep -v " --- " | sort -r
 }
 
-# Run a docker container with a shell
-docker-here() {
-    docker run --rm -it \
-        -v "$(pwd):/v" -w /v \
-        "$1" \
-        sh -c 'if [ -e /bin/bash ]; then /bin/bash; else /bin/sh; fi'
-}
-
 alpine() {
     docker-here alpine:latest
 }
