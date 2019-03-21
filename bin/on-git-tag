@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if git describe --exact-match HEAD >/dev/null 2>&1; then
+    git describe --tags
+    exit 0
+else
+    echo "nah"
+    exit 1
+fi
