@@ -50,30 +50,6 @@ pull-jenkins-failures() {
     curl -fsSL "$1" | grep "FAIL:" | grep -v " --- " | sort -r
 }
 
-alpine() {
-    docker-here alpine:latest
-}
-
-xenial() {
-    docker-here ubuntu:xenial
-}
-
-jessie() {
-    docker-here debian:jessie
-}
-
-fedora() {
-    docker-here fedora:latest
-}
-
-centos() {
-    docker-here centos:latest
-}
-
-busybox() {
-    docker-here busybox:latest
-}
-
 add-upstream-remote() {
     git remote add upstream "git@github.com:$1"
 }
