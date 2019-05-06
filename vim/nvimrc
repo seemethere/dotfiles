@@ -60,6 +60,8 @@ endif
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
+        Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
+        Plug 'b4b4r07/vim-hcl', {'for': 'hcl'}
 
         Plug 'junegunn/goyo.vim'
         Plug 'junegunn/limelight.vim'
