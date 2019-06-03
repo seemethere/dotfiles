@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git ls-remote $1 | grep tags | awk '{print $2}' | sed -e '/\}$/d' -e 's!refs/tags/!!' | sort -V | tail -1
