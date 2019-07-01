@@ -62,6 +62,8 @@ endif
         Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
         Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
         Plug 'b4b4r07/vim-hcl', {'for': 'hcl'}
+        Plug 'ryanoasis/vim-devicons'
+        Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
         Plug 'junegunn/goyo.vim'
         Plug 'junegunn/limelight.vim'
@@ -81,10 +83,6 @@ endif
         " Go specific {
             Plug 'fatih/vim-go', {'for': 'go'}
             let g:go_metalinter_autosave = 0
-            let editor_name='vim'
-            if has('nvim')
-                let editor_name='nvim'
-            endif
             Plug 'godoctor/godoctor.vim', {'for': 'go'} " Gocode refactoring tool
         " }
         "
@@ -118,9 +116,6 @@ endif
     " }
 
     " neomake {
-        " Mainly for python only right now, could expand to other things
-        let g:neomake_python_enabled_makers = ['flake8']
-        nnoremap <Leader>zz :Neomake flake8<CR>
         " Run neomake on write
         autocmd! vimrc BufWritePost * Neomake
     " }
@@ -175,6 +170,8 @@ endif
         let g:airline_theme='gruvbox'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
+        let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+        let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
     " }
     "
     " NERDTree {
