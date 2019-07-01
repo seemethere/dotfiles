@@ -114,3 +114,5 @@ setopt interactivecomments
 
 # Hey this is so dumb that I have to add this
 export DISABLE_WARN_OUTSIDE_CONTAINER=1
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
