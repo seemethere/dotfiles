@@ -116,3 +116,24 @@ setopt interactivecomments
 export DISABLE_WARN_OUTSIDE_CONTAINER=1
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# GPG agent
+GPG_AGENT_FILE="$HOME/.gpg-agent-info"
+function start_gpg_agent {
+  gpg-agent --daemon --write-env-file "$GPG_AGENT_FILE"
+}
+if which gpg-agent > /dev/null; then
+  # start agent if there's no agent file
+  if [ ! -f "$GPG_AGENT_FILE" ]; then
+    eval "$( start_gpg_agent )"
+  else
+    # check agent works
+    source "$GPG_AGENT_FILE"
+    SOCKET=$(echo "${GPG_AGENT_INFO}"  | cut -d : -f 1)
+    # check agent connection
+    if ( ! nc -U "$SOCKET" < /dev/null | grep -q "OK Pleased to meet you" ); then
+      eval $( start_gpg_agent )
+    fi
+  fi
+  export GPG_TTY="$(tty)"
+fi
