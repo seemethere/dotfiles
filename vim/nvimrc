@@ -60,10 +60,9 @@ endif
         Plug 'tpope/vim-surround'                   " Surround things with things
         Plug 'vim-airline/vim-airline'              " Cool ass statusline
         Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
-        Plug 'fatih/vim-hclfmt', {'for': 'hcl'}
         Plug 'b4b4r07/vim-hcl', {'for': 'hcl'}
         Plug 'ryanoasis/vim-devicons'
-        Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+        Plug 'neoclide/coc.nvim', {'do': './install.sh'}
 
         Plug 'junegunn/goyo.vim'
         Plug 'junegunn/limelight.vim'
@@ -107,6 +106,12 @@ endif
         " vim-tmux-navigator {
             " Disable tmux navigator when zooming the Vim pane
             let g:tmux_navigator_disable_when_zoomed = 1
+        " }
+
+        " vim-terraform {
+            Plug 'hashivim/vim-terraform', {'for': 'tf'}
+            let g:terraform_align=1
+            let g:terraform_fmt_on_save=1
         " }
 
     call plug#end()
