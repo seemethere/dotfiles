@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+DTR_INSTANCE=${DTR_INSTANCE:-}
+if [ -z "${DTR_INSTANCE}" ]; then
+    echo "Must specify a DTR_INSTANCE"
+    exit 1
+fi
+
+IMAGE=${1/:/\/}
+
+curl -fsSL "${DTR_INSTANCE}/api/v0/imagescan/scansummary/repositories/${IMAGE}" | jq '.[].scannedImage.components[] | select(.vulnCount.major > 0 or .vulnCount.critical >0)'
