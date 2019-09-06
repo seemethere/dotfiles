@@ -62,7 +62,7 @@ endif
         Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
         Plug 'b4b4r07/vim-hcl', {'for': 'hcl'}
         Plug 'ryanoasis/vim-devicons'
-        Plug 'neoclide/coc.nvim', {'do': './install.sh'}
+        Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
         Plug 'junegunn/goyo.vim'
         Plug 'junegunn/limelight.vim'
