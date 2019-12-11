@@ -23,6 +23,7 @@
     ~/.bin: bin/
     ~/.worldclock.zones: worldclock.zones
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
+    ~/.hammerspoon/init.lua: hammerspoon/init.lua
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
