@@ -118,3 +118,18 @@ export DISABLE_WARN_OUTSIDE_CONTAINER=1
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export GPG_TTY="$(/usr/bin/tty)"
+
+# Activate conda base environment
+if [[ -n "$TMUX" ]]; then
+    # There's a bug within conda where if your zshrc is re-sourced
+    # then the base environment is basically hosed
+    #
+    # This resolves that by basically turning it off and turning it
+    # back on again
+    #
+    # Source:
+    # https://github.com/conda/conda/issues/6826#issuecomment-397287212
+    if conda deactivate; then
+        conda activate base
+    fi
+fi
