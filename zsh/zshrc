@@ -70,7 +70,7 @@ zplug "lib/history", from:oh-my-zsh
 # Adds useful aliases for things dealing with directories
 zplug "lib/directories", from:oh-my-zsh
 # gst, gco, gc -> All the git shortcut goodness
-zplug "plugins/git", from:oh-my-zsh, if:"hash git"
+zplug "plugins/git", from:oh-my-zsh
 # Syntax highlighting for commands
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:3
 # Theme!
