@@ -48,6 +48,7 @@ endif
         Plug 'mbbill/undotree'                      " Undo tree
         Plug 'mhinz/vim-startify'                   " Nice start screen
         Plug 'morhetz/gruvbox'                      " Really nice colorscheme
+        Plug 'cormacrelf/vim-colors-github'
         Plug 'nathanaelkane/vim-indent-guides'      " Indent Guides
         Plug 'powerline/fonts'                      " Powerline fonts for airline
         Plug 'rking/ag.vim'                         " Silver searcher searching
@@ -172,7 +173,7 @@ endif
     " }
 
     " vim-airline {
-        let g:airline_theme='gruvbox'
+        let g:airline_theme='github'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
@@ -210,7 +211,7 @@ endif
 
 " General {
     " Allow a trigger for the background
-    set background=dark " Dark backgrounds cause we're emo
+    set background=light
     function! ToggleBG()
         let s:tbg = &background
         " Inversion
@@ -285,7 +286,7 @@ endif
         " True color support
         set termguicolors
     endif
-    color gruvbox
+    color github
 
     set splitbelow
     set splitright
