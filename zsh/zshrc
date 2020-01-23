@@ -17,8 +17,6 @@ path_if_exists() {
 # Path stuff
 export TERM="xterm-256color"
 
-source_if_exists ~/.cargo/env
-
 path_if_exists ~/.bin
 
 path_if_exists /usr/local/go/bin
@@ -72,7 +70,7 @@ zplug "lib/directories", from:oh-my-zsh
 # gst, gco, gc -> All the git shortcut goodness
 zplug "plugins/git", from:oh-my-zsh
 # conda zshell completion
-zplug "esc/conda-zsh-completion", from:github, if: "conda --version"
+zplug "esc/conda-zsh-completion", from:github
 # Syntax highlighting for commands
 zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:3
 # Theme!
@@ -92,6 +90,7 @@ zplug load
 # ================================================================
 # source fzf if it exists
 source_if_exists ~/.fzf.zsh
+source_if_exists ~/.cargo/env
 source_if_exists /usr/share/fzf/shell/key-bindings.zsh
 source_if_exists /usr/share/zsh/site-functions/fzf
 
@@ -100,16 +99,8 @@ source_if_exists /usr/share/zsh/site-functions/fzf
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if which pyenv > /dev/null 2>&1; then eval "$(pyenv init -)"; fi
 
-if [[ -n "$BENCHMARK" ]];then
-    zprof > "$HOME/.zsh_benchmark"
-fi
-
-# added by travis gem
-source_if_exists ~/.travis/travis.sh
-
 export WORKON_HOME="$HOME/venvs"
 export PROJECT_HOME="$HOME/projects"
-source_if_exists /usr/local/bin/virtualenvwrapper.sh
 
 # I can have comments at the end of my commands too :D
 setopt interactivecomments
@@ -121,17 +112,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export GPG_TTY="$(/usr/bin/tty)"
 
-# Activate conda base environment
-if [[ -n "$TMUX" ]]; then
-    # There's a bug within conda where if your zshrc is re-sourced
-    # then the base environment is basically hosed
-    #
-    # This resolves that by basically turning it off and turning it
-    # back on again
-    #
-    # Source:
-    # https://github.com/conda/conda/issues/6826#issuecomment-397287212
-    if conda deactivate; then
-        conda activate base
-    fi
+if [[ -n "$BENCHMARK" ]];then
+    zprof > "$HOME/.zsh_benchmark"
 fi
