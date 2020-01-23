@@ -18,6 +18,9 @@ alias la="ls -laF ${colorflag}"
 
 alias ls="command ls ${colorflag}"
 
+# It's extremely annoying that this is not the default
+alias rg="command rg --hidden"
+
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
 alias grep='grep --color=auto'

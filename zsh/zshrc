@@ -109,6 +109,7 @@ setopt interactivecomments
 export DISABLE_WARN_OUTSIDE_CONTAINER=1
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export FZF_DEFAULT_COMMAND='find . -type f -not -path '*/\.git/*' -printf '%P\\n''
 
 export GPG_TTY="$(/usr/bin/tty)"
 
