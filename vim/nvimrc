@@ -18,13 +18,13 @@ if !empty(glob(g:neovim3_venv))
     let g:python3_host_prog=g:neovim3_venv
 endif
 
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob(expand('~/.vim/autoload/plug.vim')))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-if empty(expand('~/.config/nvim/autoload/plug.vim'))
+if empty(glob(expand('~/.config/nvim/autoload/plug.vim')))
     silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -47,7 +47,6 @@ endif
         Plug 'mbbill/undotree'                      " Undo tree
         Plug 'mhinz/vim-startify'                   " Nice start screen
         Plug 'morhetz/gruvbox'                      " Really nice colorscheme
-        Plug 'cormacrelf/vim-colors-github'
         Plug 'nathanaelkane/vim-indent-guides'      " Indent Guides
         Plug 'powerline/fonts'                      " Powerline fonts for airline
         Plug 'rking/ag.vim'                         " Silver searcher searching
@@ -175,7 +174,7 @@ endif
     " }
 
     " vim-airline {
-        let g:airline_theme='github'
+        let g:airline_theme='gruvbox'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
@@ -271,7 +270,7 @@ endif
 
 " General {
     " Allow a trigger for the background
-    set background=light
+    set background=dark
     function! ToggleBG()
         let s:tbg = &background
         " Inversion
@@ -342,11 +341,10 @@ endif
         set guioptions-=R
         set guioptions-=L
     endif
-    if has("nvim")
-        " True color support
-        set termguicolors
-    endif
-    color github
+    " True color support
+    set termguicolors
+
+    color gruvbox
 
     set splitbelow
     set splitright
@@ -402,7 +400,9 @@ endif
         autocmd vimrc GUIEnter * set visualbell t_vb=
     endif
 
-    au TermOpen * setlocal nonumber norelativenumber
+    if has('nvim')
+        au TermOpen * setlocal nonumber norelativenumber
+    endif
 " }
 
 " Formatting {
