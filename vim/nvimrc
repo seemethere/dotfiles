@@ -18,14 +18,13 @@ if !empty(glob(g:neovim3_venv))
     let g:python3_host_prog=g:neovim3_venv
 endif
 
-if empty(glob(expand('~/.vim/autoload/plug.vim')))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+let s:plug_location='~/.vim/autoload/plug.vim'
+if has('nvim')
+    let s:plug_location='~/.config/nvim/autoload/plug.vim'
 endif
 
-if empty(glob(expand('~/.config/nvim/autoload/plug.vim')))
-    silent !curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs
+if empty(glob(expand(s:plug_location)))
+    silent !curl -fLo expand(s:plug_location) --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
