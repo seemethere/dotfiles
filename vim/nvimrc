@@ -20,7 +20,7 @@ endif
 
 let s:plug_location='~/.vim/autoload/plug.vim'
 if has('nvim')
-    let s:plug_location='~/.config/nvim/autoload/plug.vim'
+    let s:plug_location='~/.local/share/nvim/site/autoload/plug.vim'
 endif
 
 if empty(glob(expand(s:plug_location)))
