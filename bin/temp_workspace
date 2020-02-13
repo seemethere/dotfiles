@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+ORIG_DIR=$(pwd)
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf ${TMP_DIR};cd ${ORIG_DIR}' EXIT
+
+echo "-_-_- ENTERING TEMP WORKSPACE -_-_-"
+pushd "${TMP_DIR}" || exit
+${SHELL}
+echo "-_-_- EXITING TEMP WORKSPACE -_-_-"
