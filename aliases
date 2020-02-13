@@ -16,6 +16,8 @@ alias l="ls -lf ${colorflag}"
 
 alias la="ls -laF ${colorflag}"
 
+alias ll="ls -lh ${colorflag}"
+
 alias ls="command ls ${colorflag}"
 
 # It's extremely annoying that this is not the default
@@ -31,27 +33,20 @@ alias gitlog="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Cres
 alias vup="vagrant destroy -f && vagrant up && vagrant ssh"
 alias vdown="vagrant destroy -f"
 
+alias gst="git status"
+alias gd="git diff"
+alias gco="git checkout"
+alias gfa="git fetch --all"
+alias ga="git add"
+alias gc="git commit -v"
+alias gp="git push"
+
 vagrant-kill-all() {
     for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
         vagrant destroy -f "$i"
     done
 }
 
-jsonlint() {
-    docker run --rm -v "$(pwd)":/v -w /v sahsu/docker-jsonlint jsonlint "$@"
-}
-
-docker-upstream-commit() {
-    git log | grep -B 1 "Component: $1" | head -1 | awk '{print $2}'
-}
-
-commits-since() {
-    git log --no-merges "$1"...HEAD
-}
-
-pull-jenkins-failures() {
-    curl -fsSL "$1" | grep "FAIL:" | grep -v " --- " | sort -r
-}
 
 add-upstream-remote() {
     git remote add upstream "git@github.com:$1"
