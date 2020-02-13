@@ -1,0 +1,11 @@
+# stolen from https://github.com/brian-bates/dotfiles/blob/master/bash/inputrc
+# Improved History Searching
+# arrow up
+"\e[A":history-search-backward
+# arrow down
+"\e[B":history-search-forward
+
+set colored-completion-prefix on
+set colored-stats on
+set completion-ignore-case on
+set enable-bracketed-paste on

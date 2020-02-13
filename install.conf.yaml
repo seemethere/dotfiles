@@ -12,6 +12,9 @@
     ~/.vimrc: vim/nvimrc
     ~/.nvimrc: vim/nvimrc
     ~/.zshrc: zsh/zshrc
+    ~/.bashrc: bash/bashrc
+    ~/.inputrc: bash/inputrc
+    ~/.config/starship.toml: starship/starship.toml
     ~/.gitignore_global: git/gitignore_global
     ~/.ptpython/config.py:
         create: true

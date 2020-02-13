@@ -1,0 +1,66 @@
+# ╭-----------------------------------------------------------------╮
+# | #######:::::'###:::::'######::'##::::'##:'########:::'######::: |
+# | ##.... ##:::'## ##:::'##... ##: ##:::: ##: ##.... ##:'##... ##: |
+# | ##:::: ##::'##:. ##:: ##:::..:: ##:::: ##: ##:::: ##: ##:::..:: |
+# | ########::'##:::. ##:. ######:: #########: ########:: ##::::::: |
+# | ##.... ##: #########::..... ##: ##.... ##: ##.. ##::: ##::::::: |
+# | ##:::: ##: ##.... ##:'##::: ##: ##:::: ##: ##::. ##:: ##::: ##: |
+# | ########:: ##:::: ##:. ######:: ##:::: ##: ##:::. ##:. ######:: |
+# | .......:::..:::::..:::......:::..:::::..::..:::::..:::......::: |
+# ╰-----------------------------------------------------------------╯
+
+source_if_exists() {
+    if [[ -f $1 ]]; then
+        . $1;
+    fi
+}
+
+path_if_exists() {
+    if [[ -d $1 ]]; then
+        # Only add to PATH if not already in our path
+        if [[ ! ":${PATH}:" == *":$1:"* ]]; then
+            export PATH="$1:$PATH"
+        fi
+    fi
+}
+
+export TERM="xterm-256color"
+
+shopt -s histappend
+export HISTFILESIZE=-1
+export HISTSIZE=1000000
+export HISTFILE=$HOME/.bash_history_actual
+if [[ ! "${PROMPT_COMMAND}" == *"history -a"* ]]; then
+    # No need for a ; here, starship already does that
+    export PROMPT_COMMAND="history -a $PROMPT_COMMAND"
+fi
+
+# Set our path
+path_if_exists "$HOME/dotfiles/.bin" # Scripts maintained by our dotfiles
+path_if_exists "$HOME/.local/bin"    # Binaries that are only local to our install
+path_if_exists "$HOME/go/bin"        # Locally installed go binaries
+path_if_exists "/usr/local/go/bin"   # System install go
+
+# setup our editor of choice
+export EDITOR="vim"
+if nvim --version >/dev/null 2>/dev/null;then
+    export EDITOR="nvim"
+fi
+
+source_if_exists "$HOME/.aliases"
+source_if_exists "$HOME/.aliases-local"
+source_if_exists "$HOME/.bashrc.local"
+
+# setup fzf
+if [[ ! -d "$HOME/.fzf" ]]; then
+    # Install fzf if not already installed
+    git clone https://github.com/junegunn/fzf.git "$HOME/.fzf"
+    # Do not update our bashrc, we already have the necessary stuff
+    "$HOME/.fzf/install" --no-update-rc
+fi
+source_if_exists "$HOME/.fzf.bash"
+export FZF_DEFAULT_COMMAND='find . -type f -not -path "*/\.git/*" -printf "%P\\n"'
+
+export GPG_TTY="$(/usr/bin/tty)"
+
+eval "$(starship init bash)"
