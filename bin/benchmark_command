@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+DATE_COMMAND="date"
+if [[ "$(uname)" = *Darwin* ]]; then
+    DATE_COMMAND="gdate"
+fi
+
+START=$(${DATE_COMMAND} +%s.%N)
+# do something #######################
+
+$SHELL -c "$@" &> /dev/null
+
+#######################################
+END=$(${DATE_COMMAND} +%s.%N)
+DIFF=$( echo "scale=3; (${END} - ${START})*1000/1" | bc )
+# echo to stderr
+echo "${DIFF}"
