@@ -36,7 +36,7 @@ if [[ ! "${PROMPT_COMMAND}" == *"history -a"* ]]; then
 fi
 
 # Set our path
-path_if_exists "$HOME/dotfiles/.bin" # Scripts maintained by our dotfiles
+path_if_exists "$HOME/.bin" # Scripts maintained by our dotfiles
 path_if_exists "$HOME/.local/bin"    # Binaries that are only local to our install
 path_if_exists "$HOME/go/bin"        # Locally installed go binaries
 path_if_exists "/usr/local/go/bin"   # System install go
@@ -59,7 +59,11 @@ if [[ ! -d "$HOME/.fzf" ]]; then
     "$HOME/.fzf/install" --no-update-rc
 fi
 source_if_exists "$HOME/.fzf.bash"
-export FZF_DEFAULT_COMMAND='find . -type f -not -path "*/\.git/*" -printf "%P\\n"'
+
+if fd --version >/dev/null 2>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
 
 export GPG_TTY="$(/usr/bin/tty)"
 
