@@ -24,3 +24,4 @@ REMOTE=${REMOTE:-origin}
 git checkout -q "${REMOTE}/${CURRENT_BRANCH}"
 git branch -q -D "${CURRENT_BRANCH}"
 git checkout -q -b "${CURRENT_BRANCH}"
+git branch -q -u "${REMOTE}/${CURRENT_BRANCH}"
