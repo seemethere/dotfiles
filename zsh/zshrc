@@ -75,8 +75,6 @@ zplug "lib/completion", from:oh-my-zsh
 zplug "lib/key-bindings", from:oh-my-zsh
 # History defaults
 zplug "lib/history", from:oh-my-zsh
-# Adds useful aliases for things dealing with directories
-zplug "lib/directories", from:oh-my-zsh
 # gst, gco, gc -> All the git shortcut goodness
 zplug "plugins/git", from:oh-my-zsh
 # conda zshell completion
@@ -104,6 +102,7 @@ source_if_exists ~/.cargo/env
 source_if_exists /usr/share/fzf/shell/key-bindings.zsh
 source_if_exists /usr/share/zsh/site-functions/fzf
 
+setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
 
 # Source pyenv init if it exists
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
@@ -122,6 +121,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export FZF_DEFAULT_COMMAND='find . -type f -not -path '*/\.git/*' -printf '%P\\n''
 
 export GPG_TTY="$(/usr/bin/tty)"
+
+# Source local zshrc if it exists
+source_if_exists ~/.zshrc.local
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"
