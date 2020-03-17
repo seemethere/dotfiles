@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+## USAGE:
+##    $ git yolo-push
+
+# Should auto-register itself as a git subcommand if this
+# script is in your PATH
+
+# When you have changes inside of your local and you
+# just want to ammend those changes to your current
+# commit and push it up
+
+CURRENT_BRANCH=${1:-$(git rev-parse --abbrev-ref HEAD)}
+REMOTE=${REMOTE:-origin}
+
+(
+    set -x
+    git commit -as --amend --no-edit
+    git push -fu "${REMOTE}" "${CURRENT_BRANCH}"
+)
+
+cat <<-EOF
+
+██╗   ██╗ ██████╗ ██╗      ██████╗
+╚██╗ ██╔╝██╔═══██╗██║     ██╔═══██╗
+ ╚████╔╝ ██║   ██║██║     ██║   ██║
+  ╚██╔╝  ██║   ██║██║     ██║   ██║
+   ██║   ╚██████╔╝███████╗╚██████╔╝
+   ╚═╝    ╚═════╝ ╚══════╝ ╚═════╝
+
+EOF
