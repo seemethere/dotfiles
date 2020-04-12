@@ -79,8 +79,6 @@ zplug "lib/history", from:oh-my-zsh
 zplug "plugins/git", from:oh-my-zsh
 # conda zshell completion
 zplug "esc/conda-zsh-completion", from:github
-# Tab completion that uses fzf to show results
-zplug "Aloxaf/fzf-tab", from:github, defer:2
 # Syntax highlighting for commands
 zplug "zdharma/fast-syntax-highlighting", from:github, defer:3
 # Theme!
