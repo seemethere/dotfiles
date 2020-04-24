@@ -122,6 +122,22 @@ export FZF_DEFAULT_COMMAND='find . -type f -not -path '*/\.git/*' -printf '%P\\n
 
 export GPG_TTY="$(/usr/bin/tty)"
 
+# SSH AGENT STUFF
+if [[ -z "${TMUX}" ]]; then
+    # Create an ssh auth sock if we don't already have one
+    if [[ -z "${SSH_AUTH_SOCK}" ]]; then
+        echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+        echo "= Instantiating new ssh-agent since one does not already exist -"
+        echo "=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+        eval "$(ssh-agent)"
+        ssh-add
+    fi
+    ln -s "${SSH_AUTH_SOCK}" "${HOME}/.ssh/auth_sock-$(hostname -s)"
+else
+    # When in a tmux session default to this ssh auth sock
+    export SSH_AUTH_SOCK="${HOME}/.ssh/auth_sock-$(hostname -s)"
+fi
+
 # Source local zshrc if it exists
 source_if_exists ~/.zshrc.local
 
