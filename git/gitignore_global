@@ -46,3 +46,4 @@ venv
 .env
 
 __pycache__
+.pem
