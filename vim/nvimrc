@@ -31,99 +31,59 @@ endif
 
 " Plugins {
     call plug#begin(g:plugins_location)
-        Plug 'Chiel92/vim-autoformat'               " Autoformatting of code
-        Plug 'Xuyuanp/nerdtree-git-plugin'          " Git plugin for nerdtree
-        Plug 'airblade/vim-gitgutter'               " Show git changes
-        Plug 'airblade/vim-rooter'                  " Change pwd to root for a file
-        Plug 'amix/vim-zenroom2'
-        Plug 'benekastah/neomake'                   " Syntax checking
-        Plug 'ekalinin/Dockerfile.vim'              " Dockerfile stuff
-        Plug 'ervandew/supertab'                    " Supertab!
-        Plug 'haya14busa/incsearch.vim'             " Better searching
-        Plug 'jiangmiao/auto-pairs'                 " Auto pair parens and brackets
-        Plug 'jszakmeister/vim-togglecursor'        " Toggle cursor in insert mode
-        Plug 'luochen1990/rainbow'                  " Rainbow parenthesis
-        Plug 'mbbill/undotree'                      " Undo tree
-        Plug 'mhinz/vim-startify'                   " Nice start screen
-        Plug 'morhetz/gruvbox'                      " Really nice colorscheme
-        Plug 'nathanaelkane/vim-indent-guides'      " Indent Guides
-        Plug 'powerline/fonts'                      " Powerline fonts for airline
-        Plug 'rking/ag.vim'                         " Silver searcher searching
-        Plug 'schickling/vim-bufonly'               " Close all buffers except one
-        Plug 'scrooloose/nerdtree'                  " File tree viewer
-        Plug 'tpope/vim-abolish'
-        Plug 'tpope/vim-commentary'                 " Comment all the things
-        Plug 'tpope/vim-fugitive'                   " Git stuff (Mainly for :Gblame)
-        Plug 'tpope/vim-sleuth'                     " Detect tabs / spaces
-        Plug 'tpope/vim-surround'                   " Surround things with things
-        Plug 'vim-airline/vim-airline'              " Cool ass statusline
-        Plug 'christoomey/vim-tmux-navigator'       " Tmux naviation so I don't get carpal tunnel
-        Plug 'b4b4r07/vim-hcl', {'for': 'hcl'}
-        Plug 'ryanoasis/vim-devicons'
-        Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
-
-        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-        Plug 'junegunn/fzf.vim'
-
-        Plug 'junegunn/goyo.vim'
-        Plug 'junegunn/limelight.vim'
-        " Setting vim specific autocomplete
-        if has('nvim')
-            Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-        else
-            Plug 'tpope/vim-sensible'               " Sensible vim settings
-            Plug 'Shougo/neocomplete.vim'           " Autocomplete for vim
-        endif
-
-        " Python specific {
-            Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-            Plug 'davidhalter/jedi-vim', {'for': 'python'}
-        " }
-
-        " Go specific {
-            Plug 'fatih/vim-go', {'for': 'go'}
-            let g:go_metalinter_autosave = 0
-            Plug 'godoctor/godoctor.vim', {'for': 'go'} " Gocode refactoring tool
-        " }
-        "
-        " Powershell specific {
-            Plug 'PProvost/vim-ps1', {'for': 'ps1'}
-        " }
-
-        " TOML {
-            Plug 'cespare/vim-toml', {'for': 'toml'}
-        " }
-
-        " Rust {
-            Plug 'rust-lang/rust.vim', {'for': 'rust'}
-            Plug 'racer-rust/vim-racer', {'for': 'rust'}
-            let g:racer_cmd = substitute(system('which racer'), '\n', '', '')
-            au FileType rust nmap gd <Plug>(rust-def)
-            au FileType rust nmap gs <Plug>(rust-def-split)
-            au FileType rust nmap gx <Plug>(rust-def-vertical)
-            au FileType rust nmap <leader>gd <Plug>(rust-doc)
-        " }
-
-        " vim-tmux-navigator {
-            " Disable tmux navigator when zooming the Vim pane
-            let g:tmux_navigator_disable_when_zoomed = 1
-        " }
-
-        " vim-terraform {
-            Plug 'hashivim/vim-terraform', {'for': 'tf'}
-            let g:terraform_align=1
-            let g:terraform_fmt_on_save=1
-        " }
+        Plug 'airblade/vim-gitgutter'                   " Show git changes
+        Plug 'airblade/vim-rooter'                      " Change pwd to root for a file
+        Plug 'Chiel92/vim-autoformat'                   " autoformatter
+        Plug 'christoomey/vim-tmux-navigator'           " Tmux naviation so I don't get carpal tunnel
+        Plug 'dense-analysis/ale'                       " Static analysis
+        Plug 'ekalinin/Dockerfile.vim'                  " Dockerfile stuff
+        Plug 'haya14busa/incsearch.vim'                 " Better searching
+        Plug 'jiangmiao/auto-pairs'                     " Auto pair parens and brackets
+        Plug 'jszakmeister/vim-togglecursor'            " Toggle cursor in insert mode
+        Plug 'junegunn/fzf.vim'                         " fuzzy file finding
+        Plug 'junegunn/goyo.vim'                        " 'focus' mode
+        Plug 'luochen1990/rainbow'                      " Rainbow parenthesis
+        Plug 'mbbill/undotree'                          " Undo tree
+        Plug 'mhinz/vim-startify'                       " Nice start screen
+        Plug 'morhetz/gruvbox'                          " Really nice colorscheme
+        Plug 'nathanaelkane/vim-indent-guides'          " Indent Guides
+        Plug 'neoclide/coc.nvim', {'branch': 'release'} " Auto-completion
+        Plug 'powerline/fonts'                          " Powerline fonts for airline
+        Plug 'rking/ag.vim'                             " Silver searcher searching
+        Plug 'ryanoasis/vim-devicons'                   " Dev-icons for nerdtree
+        Plug 'schickling/vim-bufonly'                   " Close all buffers except one
+        Plug 'scrooloose/nerdtree'                      " File tree viewer
+        Plug 'tpope/vim-abolish'                        " Case insensitive search and replace
+        Plug 'tpope/vim-commentary'                     " Comment all the things
+        Plug 'tpope/vim-fugitive'                       " Git stuff (Mainly for :Gblame)
+        Plug 'tpope/vim-sleuth'                         " Detect tabs / spaces
+        Plug 'tpope/vim-surround'                       " Surround things with things
+        Plug 'vim-airline/vim-airline'                  " Cool ass statusline
+        Plug 'Xuyuanp/nerdtree-git-plugin'              " Git plugin for nerdtree
+        Plug 'fatih/vim-go', {'for': 'go'}              " Go specific dev tools
+        Plug 'rust-lang/rust.vim', {'for': 'rust'}      " Rust tooling
+        Plug 'hashivim/vim-terraform', {'for': 'tf'}    " Terraform tooling / linting
 
     call plug#end()
 
-    " vim-bufonly {
-        nnoremap <Leader>bo :Bufonly<CR>
+    " coc {
+        " GoTo code navigation.
+        nmap <silent> gd <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+        nmap <silent> gi <Plug>(coc-implementation)
+        nmap <silent> gr <Plug>(coc-references)
+        let g:ale_linters = {
+        \   'typescript': ['eslint', 'tslint'],
+        \}
     " }
 
-    " neomake {
-        " Run neomake on write
-        autocmd! vimrc BufWritePost * Neomake
+    " vim-tmux-navigator {
+        " Disable tmux navigator when zooming the Vim pane
+        let g:tmux_navigator_disable_when_zoomed = 1
+    " }
+
+    " vim-bufonly {
+        nnoremap <Leader>bo :Bufonly<CR>
     " }
 
     " python-mode {
@@ -157,21 +117,6 @@ endif
         let g:indent_guides_enable_on_vim_startup = 1
     " }
 
-    " deoplete / neocomplete {
-        if has('nvim')
-            let g:deoplete#enable_at_startup = 1
-            let g:deoplete#enable_smart_case = 2
-        else
-            let g:neocomplete#enable_at_startup = 1
-            let g:neocomplete#enable_smart_case = 2
-        endif
-    " }
-
-    " Jedi-Vim {
-        autocmd vimrc FileType python setlocal completeopt-=preview
-        let g:jedi#show_call_signatures = '0'
-    " }
-
     " vim-airline {
         let g:airline_theme='gruvbox'
         let g:airline_powerline_fonts = 1
@@ -179,7 +124,7 @@ endif
         let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
         let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
     " }
-    "
+
     " NERDTree {
         map <C-e> :NERDTreeToggle<CR>
         map <Leader>e :NERDTreeFind<CR>
@@ -207,7 +152,7 @@ endif
     " rainbow {
         let g:rainbow_active = 1
     " }
-    "
+
     " fzf {
         " Using floating windows of Neovim to start fzf
         if has('nvim')
@@ -265,6 +210,29 @@ endif
           \   'rg --hidden -g "!.git" --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
           \   fzf#vim#with_preview(), <bang>0)
     " }
+
+    " coc {
+        " use <tab> for trigger completion and navigate to the next complete item
+        function! s:check_back_space() abort
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~ '\s'
+        endfunction
+
+        inoremap <silent><expr> <Tab>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<Tab>" :
+            \ coc#refresh()
+    " }
+
+    " vim-go {
+        let g:go_metalinter_autosave = 0
+    " }
+
+    " vim-terraform {
+        let g:terraform_align=1
+        let g:terraform_fmt_on_save=1
+    " }
+
 " }
 
 " General {
