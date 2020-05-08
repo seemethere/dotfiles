@@ -40,6 +40,7 @@ endif
         Plug 'haya14busa/incsearch.vim'                 " Better searching
         Plug 'jiangmiao/auto-pairs'                     " Auto pair parens and brackets
         Plug 'jszakmeister/vim-togglecursor'            " Toggle cursor in insert mode
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'                         " fuzzy file finding
         Plug 'junegunn/goyo.vim'                        " 'focus' mode
         Plug 'luochen1990/rainbow'                      " Rainbow parenthesis
