@@ -31,7 +31,6 @@ endif
 
 " Plugins {
     call plug#begin(g:plugins_location)
-        Plug 'airblade/vim-gitgutter'                   " Show git changes
         Plug 'airblade/vim-rooter'                      " Change pwd to root for a file
         Plug 'Chiel92/vim-autoformat'                   " autoformatter
         Plug 'christoomey/vim-tmux-navigator'           " Tmux naviation so I don't get carpal tunnel
@@ -45,6 +44,7 @@ endif
         Plug 'junegunn/goyo.vim'                        " 'focus' mode
         Plug 'luochen1990/rainbow'                      " Rainbow parenthesis
         Plug 'mbbill/undotree'                          " Undo tree
+        Plug 'mhinz/vim-signify'                        " Diff symbols
         Plug 'mhinz/vim-startify'                       " Nice start screen
         Plug 'morhetz/gruvbox'                          " Really nice colorscheme
         Plug 'nathanaelkane/vim-indent-guides'          " Indent Guides
@@ -66,6 +66,10 @@ endif
         Plug 'hashivim/vim-terraform', {'for': 'tf'}    " Terraform tooling / linting
 
     call plug#end()
+
+    " vim-signify {
+        set updatetime=100
+    " }
 
     " coc {
         " GoTo code navigation.
