@@ -18,7 +18,7 @@ get_gpu_max_memory_usage() {
     local curr
     # Some processes might not use the GPU
     if ! nvidia-smi pmon -s m -c 1 -o T | grep "${my_pid}" >/dev/null 2>/dev/null; then
-        echo "0"
+        echo "${max}"
         return
     fi
     curr=$(nvidia-smi pmon -s m -c 1 -o T | grep "${my_pid}" | awk '{print $5}' | sort | tail -1 | grep -o "[0-9.]*")
@@ -33,6 +33,8 @@ get_cpu_max_rss_memory_usage() {
     if [[ -f "${SMAPS_FILE}" ]]; then
         curr=$(cat "${SMAPS_FILE}" | grep -i '^Rss' |  awk '{Total+=$2} END {print Total/1024""}' | grep -o "[0-9.]*")
         max "${curr}" "${max}"
+    else
+        echo "${max}"
     fi
 }
 
@@ -44,6 +46,8 @@ get_cpu_max_pss_memory_usage() {
     if [[ -f "${SMAPS_FILE}" ]]; then
         curr=$(cat "${SMAPS_FILE}" | grep -i '^Pss' |  awk '{Total+=$2} END {print Total/1024""}' | grep -o "[0-9.]*")
         max "${curr}" "${max}"
+    else
+        echo "${max}"
     fi
 }
 
