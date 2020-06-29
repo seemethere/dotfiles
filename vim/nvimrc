@@ -64,6 +64,7 @@ endif
         Plug 'fatih/vim-go', {'for': 'go'}              " Go specific dev tools
         Plug 'rust-lang/rust.vim', {'for': 'rust'}      " Rust tooling
         Plug 'hashivim/vim-terraform', {'for': 'tf'}    " Terraform tooling / linting
+        Plug 'cormacrelf/vim-colors-github'
 
     call plug#end()
 
@@ -123,7 +124,8 @@ endif
     " }
 
     " vim-airline {
-        let g:airline_theme='gruvbox'
+        " let g:airline_theme='gruvbox'
+        let g:airline_theme='github'
         let g:airline_powerline_fonts = 1
         let g:airline#extensions#tabline#enabled = 1
         let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
@@ -316,7 +318,8 @@ endif
     " True color support
     set termguicolors
 
-    color gruvbox
+    " color gruvbox
+    color github
 
     set splitbelow
     set splitright
