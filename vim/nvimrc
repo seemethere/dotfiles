@@ -60,10 +60,12 @@ endif
         Plug 'tpope/vim-sleuth'                         " Detect tabs / spaces
         Plug 'tpope/vim-surround'                       " Surround things with things
         Plug 'vim-airline/vim-airline'                  " Cool ass statusline
+        Plug 'vimwiki/vimwiki'
         Plug 'Xuyuanp/nerdtree-git-plugin'              " Git plugin for nerdtree
         Plug 'fatih/vim-go', {'for': 'go'}              " Go specific dev tools
         Plug 'rust-lang/rust.vim', {'for': 'rust'}      " Rust tooling
         Plug 'hashivim/vim-terraform', {'for': 'tf'}    " Terraform tooling / linting
+        Plug 'jvirtanen/vim-hcl', {'for': 'hcl'}
 
     call plug#end()
 
