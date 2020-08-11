@@ -16,17 +16,11 @@
     ~/.inputrc: bash/inputrc
     ~/.config/starship.toml: starship/starship.toml
     ~/.gitignore_global: git/gitignore_global
-    ~/.ptpython/config.py:
-        create: true
-        path: ptpython/config.py
-    ~/.ideavimrc: idea/ideavimrc
     ~/.aliases: aliases
     ~/.tmux.conf: tmux/tmux.conf
     ~/.ssh/rc: ssh/rc
     ~/.bin: bin/
     ~/.worldclock.zones: worldclock.zones
-    ~/.config/kitty/kitty.conf: kitty/kitty.conf
-    ~/.hammerspoon/init.lua: hammerspoon/init.lua
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
