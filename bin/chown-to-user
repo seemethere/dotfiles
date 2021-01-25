@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+DIR=${DIR:-$(pwd)}
+CUR_UID=$(id -u)
+CUR_GUID=$(id -g)
+echo "INFO: CHOWNING ${DIR} to $(whoami)"
+(
+    set -x
+    docker run --rm -it -v "${DIR}":/v -w /v alpine chown -R "${CUR_UID}:${CUR_GUID}" .
+)
