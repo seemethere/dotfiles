@@ -124,6 +124,9 @@ export GPG_TTY="$(/usr/bin/tty)"
 
 LOCAL_SSH_AUTH_SOCK="${HOME}/.ssh/auth_sock-$(hostname -s)"
 
+# Source local zshrc if it exists
+source_if_exists ~/.zshrc.local
+
 # SSH AGENT STUFF
 if [[ -z "${TMUX}" ]]; then
     # Create an ssh auth sock if we don't already have one
@@ -140,9 +143,6 @@ else
     # When in a tmux session default to this ssh auth sock
     export SSH_AUTH_SOCK="${LOCAL_SSH_AUTH_SOCK}"
 fi
-
-# Source local zshrc if it exists
-source_if_exists ~/.zshrc.local
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"
