@@ -42,7 +42,6 @@ endif
         Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
         Plug 'junegunn/fzf.vim'                         " fuzzy file finding
         Plug 'junegunn/goyo.vim'                        " 'focus' mode
-        Plug 'luochen1990/rainbow'                      " Rainbow parenthesis
         Plug 'mbbill/undotree'                          " Undo tree
         Plug 'mhinz/vim-signify'                        " Diff symbols
         Plug 'mhinz/vim-startify'                       " Nice start screen
