@@ -18,14 +18,13 @@ if !empty(glob(g:neovim3_venv))
     let g:python3_host_prog=g:neovim3_venv
 endif
 
-let s:plug_location='~/.vim/autoload/plug.vim'
+let plug_location='~/.vim/autoload/plug.vim'
 if has('nvim')
-    let s:plug_location='~/.local/share/nvim/site/autoload/plug.vim'
+    let plug_location='~/.local/share/nvim/site/autoload/plug.vim'
 endif
 
-if empty(glob(expand(s:plug_location)))
-    silent !curl -fLo expand(s:plug_location) --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+if empty(glob(plug_location))
+    execute 'silent !curl -fLo '. plug_location .' --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
@@ -34,7 +33,6 @@ endif
         Plug 'airblade/vim-rooter'                      " Change pwd to root for a file
         Plug 'Chiel92/vim-autoformat'                   " autoformatter
         Plug 'christoomey/vim-tmux-navigator'           " Tmux naviation so I don't get carpal tunnel
-        Plug 'dense-analysis/ale'                       " Static analysis
         Plug 'ekalinin/Dockerfile.vim'                  " Dockerfile stuff
         Plug 'haya14busa/incsearch.vim'                 " Better searching
         Plug 'jiangmiao/auto-pairs'                     " Auto pair parens and brackets
@@ -49,10 +47,9 @@ endif
         Plug 'nathanaelkane/vim-indent-guides'          " Indent Guides
         Plug 'neoclide/coc.nvim', {'branch': 'release'} " Auto-completion
         Plug 'powerline/fonts'                          " Powerline fonts for airline
-        Plug 'rking/ag.vim'                             " Silver searcher searching
         Plug 'ryanoasis/vim-devicons'                   " Dev-icons for nerdtree
         Plug 'schickling/vim-bufonly'                   " Close all buffers except one
-        Plug 'scrooloose/nerdtree'                      " File tree viewer
+        Plug 'preservim/nerdtree'                       " File tree viewer
         Plug 'tpope/vim-abolish'                        " Case insensitive search and replace
         Plug 'tpope/vim-commentary'                     " Comment all the things
         Plug 'tpope/vim-fugitive'                       " Git stuff (Mainly for :Gblame)
@@ -84,9 +81,6 @@ endif
           let s:current_python_path=$CONDA_PREFIX.'/bin/python'
         endif
         call coc#config('python', {'pythonPath': s:current_python_path})
-        let g:ale_linters = {
-        \   'typescript': ['eslint', 'tslint'],
-        \}
     " }
 
     " vim-tmux-navigator {
@@ -96,15 +90,6 @@ endif
 
     " vim-bufonly {
         nnoremap <Leader>bo :Bufonly<CR>
-    " }
-
-    " python-mode {
-        let g:pymode_rope_completion=0
-        let g:pymode_rope_completion_bind = ''
-        let g:pymode_rope_complete_on_dot = 0
-        let g:pymode_lint=0
-        let g:pymode_folding=0
-        let g:pymode_virtualenv=0
     " }
 
     " incsearch.vim {
@@ -267,7 +252,11 @@ endif
     set encoding=utf8
     scriptencoding utf-8
 
-    set clipboard+=unnamed          " Enable clipboard from OSX
+    if has('nvim')
+        set clipboard+=unnamedplus
+    else
+        set clipboard+=unnamed          " Enable clipboard from OSX
+    endif
     set viewoptions=folds,options,cursor,unix,slash
     set virtualedit=onemore         " Allow for cursor beyond last character
     set history=1000                " Store a ton of history
