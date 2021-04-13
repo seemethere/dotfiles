@@ -35,6 +35,8 @@ path_if_exists ~/go/bin
 
 path_if_exists ~/.local/bin
 
+path_if_exists ~/.cargo/bin
+
 path_if_exists /usr/local/sbin/
 
 local MAIN_EDITOR="vim"
