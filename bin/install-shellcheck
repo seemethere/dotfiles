@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# NOTE: Should work for both linux and mac
+
+set -eou pipefail
+
+ORIG_DIR=$(pwd)
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf ${TMP_DIR};cd ${ORIG_DIR}' EXIT
+
+kernel_name=$(uname -s | tr '[:upper:]' '[:lower:]')
+hardware_platform=$(uname -i)
+archive_link=https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.${kernel_name}.${hardware_platform}.tar.xz
+(
+    set -x
+    pushd "${TMP_DIR}"
+    curl -fsSL -o "${TMP_DIR}/shellcheck.tar.xz" "${archive_link}"
+    tar -xJvf shellcheck.tar.xz
+    install -D -p -m 0755 shellcheck-stable/shellcheck ${HOME}/.local/bin/shellcheck
+)
