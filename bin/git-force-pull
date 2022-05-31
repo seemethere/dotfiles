@@ -6,15 +6,15 @@
 # Should auto-register itself as a git subcommand if this
 # script is in your PATH
 
-# Force pushing branches from differnt machines makes
+# Force pushing branches from different machines makes
 # working directories dirty and a pain to fix.
 
 # This alleviates that by combining the commands I
-# normally run to checiout the latest version of
+# normally run to checkout the latest version of
 # whatever is found on your remote.
 
 # NOTE: Use with caution, this will delete your
-#       current working directory
+#       current working branch
 
 set -euo pipefail
 
