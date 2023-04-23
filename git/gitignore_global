@@ -47,3 +47,5 @@ venv
 
 __pycache__
 .pem
+
+.vim/
