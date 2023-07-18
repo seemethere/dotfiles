@@ -39,8 +39,11 @@ path_if_exists ~/.cargo/bin
 
 path_if_exists /usr/local/sbin/
 
+# Add all the potential homebrew paths
 path_if_exists /opt/homebrew/bin
 path_if_exists /opt/homebrew/sbin
+path_if_exists ~/homebrew/bin
+path_if_exists ~/homebrew/sbin
 
 local MAIN_EDITOR="vim"
 if [[ $(hash nvim 2>/dev/null) != 0 ]];then
