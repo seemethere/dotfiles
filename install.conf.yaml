@@ -2,13 +2,10 @@
     link:
       relink: true
 
-- clean: ['~']
+- clean: ["~"]
 
 - link:
-    ~/.dotfiles: ''
-    ~/.config/nvim/init.vim:
-        create: true
-        path: vim/nvimrc
+    ~/.dotfiles: ""
     ~/.vimrc: vim/nvimrc
     ~/.nvimrc: vim/nvimrc
     ~/.zshrc: zsh/zshrc
@@ -22,6 +19,7 @@
     ~/.bin: bin/
     ~/.worldclock.zones: worldclock.zones
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
+    ~/.config/nvim/lua/user: lazyvim
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [git submodule update --init --recursive, Installing submodules]
