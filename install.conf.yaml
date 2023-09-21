@@ -6,8 +6,6 @@
 
 - link:
     ~/.dotfiles: ""
-    ~/.vimrc: vim/nvimrc
-    ~/.nvimrc: vim/nvimrc
     ~/.zshrc: zsh/zshrc
     ~/.bashrc: bash/bashrc
     ~/.inputrc: bash/inputrc
@@ -19,7 +17,7 @@
     ~/.bin: bin/
     ~/.worldclock.zones: worldclock.zones
     ~/.config/kitty/kitty.conf: kitty/kitty.conf
-    ~/.config/nvim/lua/user: lazyvim
+    ~/.config/nvim: nvim/
 
 - shell:
     - [git submodule update --init --recursive, Installing submodules]
