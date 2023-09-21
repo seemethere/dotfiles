@@ -1,24 +1,29 @@
 #!/usr/bin/env bash
 
 # Detect which `ls` flavor is in use
-unamestr=`uname`
-if [[ $unamestr == 'Darwin' ]];then
-    colorflag="-G"
+unamestr=$(uname)
+if [[ $unamestr == 'Darwin' ]]; then
+	colorflag="-G"
 else
-    colorflag="--color=auto"
+	colorflag="--color=auto"
 fi
 
 alias py="ptpython"
 alias pyi="ptipython"
 alias nv="nvim"
 
+if command -v lsd >/dev/null 2>/dev/null; then
+	alias ls='command lsd'
+	colorflag=""
+else
+	alias ls="command ls ${colorflag}"
+fi
+
 alias l="ls -lf ${colorflag}"
 
 alias la="ls -laF ${colorflag}"
 
 alias ll="ls -lh ${colorflag}"
-
-alias ls="command ls ${colorflag}"
 
 # It's extremely annoying that this is not the default
 alias rg="command rg --hidden"
@@ -42,22 +47,21 @@ alias gc="git commit -v"
 alias gp="git push"
 
 vagrant-kill-all() {
-    for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
-        vagrant destroy -f "$i"
-    done
+	for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
+		vagrant destroy -f "$i"
+	done
 }
 
-
 add-upstream-remote() {
-    git remote add upstream "git@github.com:$1"
+	git remote add upstream "git@github.com:$1"
 }
 
 working() {
-    # Drop myself into a running tmux session called working
-    # TODO: Add a local setup script in order to initialize local vars
+	# Drop myself into a running tmux session called working
+	# TODO: Add a local setup script in order to initialize local vars
 
-    # Note to self: -d is a good flag since it allows for aggresive resizing
-    if ! tmux a -d -t working >/dev/null 2>/dev/null; then
-        tmux new -s working
-    fi
+	# Note to self: -d is a good flag since it allows for aggresive resizing
+	if ! tmux a -d -t working >/dev/null 2>/dev/null; then
+		tmux new -s working
+	fi
 }
