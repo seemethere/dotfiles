@@ -48,3 +48,6 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
   group = vim.api.nvim_create_augroup("nvim-lastplace", {}),
   callback = run,
 })
+
+-- Turn off relative line number
+vim.wo.relativenumber = false
