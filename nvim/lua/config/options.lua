@@ -51,3 +51,5 @@ vim.api.nvim_create_autocmd({ "BufWinEnter", "FileType" }, {
 
 -- Turn off relative line number
 vim.wo.relativenumber = false
+
+vim.g.autoformat = false
