@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+# > Why does this exist?
+# Dark Souls III on steam does not support steam cloud saves so this handy utility
+# should make it easy to sync your cloud saves from your windows machine to your
+# steamdeck easily.
+#
+# Setup / prerequisites
+#   * steamdeck set up with ssh and ideally passwordless entry
+#   * wsl2, preferably debian?
+#   * And that's it!
+#
+# To run this you can download this file and put in a directory and just run bash
+# against it.
+#
+# It even comes with a debug mode! prefix your command with VERBOSE=1 and you
+# should see debug information
+
+set -eou pipefail
+
+STEAM_DECK_HOSTNAME="${STEAM_DECK_HOSTNAME:-steamdeck}"
+STEAM_DECK_USER="deck"
+STEAM_DECK="${STEAM_DECK_USER}@${STEAM_DECK_HOSTNAME}"
+
+if ! ssh "${STEAM_DECK}" echo "INFO: Connected to Steam Deck!"; then
+  echo "ERROR: Could not connect to steam deck, is everything alright?"
+  exit 1
+fi
+
+WINDOWS_APPDATA_PATH=$(wslpath $(powershell.exe '$env:APPDATA' 2>/dev/null | tr -d '\r'))
+WINDOWS_SAVE_FOLDER="${WINDOWS_APPDATA_PATH}/DarkSoulsIII"
+DECK_SAVE_FOLDER="/home/deck/.local/share/Steam/steamapps/compatdata/374320/pfx/drive_c/users/steamuser/AppData/Roaming/DarkSoulsIII"
+
+function rsync_saves() {
+  src=$1
+  dest=$2
+  VERBOSE="${VERBOSE:-}"
+  VERBOSE_FLAG=""
+
+  if [[ -n ${VERBOSE} ]]; then
+    VERBOSE_FLAG="-v"
+  fi
+
+  (
+    if [[ -n ${VERBOSE} ]]; then
+      set -x
+    fi
+
+    rsync \
+      -z \
+      -r \
+      ${VERBOSE_FLAG} \
+      -e ssh \
+      -u \
+      --exclude "GraphicsConfig.xml" \
+      --exclude "steam_autocloud.vdf" \
+      ${src} \
+      ${dest}
+    )
+
+}
+(
+  echo "INFO: Syncing to deck"
+  rsync_saves "${WINDOWS_SAVE_FOLDER}/*" "${STEAM_DECK}:${DECK_SAVE_FOLDER}"
+  echo "INFO: Syncing from deck"
+  rsync_saves "${STEAM_DECK}:${DECK_SAVE_FOLDER}/*" "${WINDOWS_SAVE_FOLDER}"
+)
