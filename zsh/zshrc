@@ -110,7 +110,13 @@ source_if_exists ~/.cargo/env
 source_if_exists /usr/share/fzf/shell/key-bindings.zsh
 source_if_exists /usr/share/zsh/site-functions/fzf
 
-setopt    incappendhistory  #Immediately append to the history file, not just when a term is killed
+# source things in homebrew site-functions
+for file in ~/homebrew/share/zsh/site-functions/*; do
+  source ${file} >/dev/null 2>/dev/null
+done
+
+# Immediately append to the history file, not just when a term is killed
+setopt incappendhistory
 
 # Source pyenv init if it exists
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
