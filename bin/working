@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Drop myself into a running tmux session called working
+
+# NOTE: -d is a good flag since it allows for aggresive resizing
+if ! tmux a -d -t working >/dev/null 2>/dev/null; then
+  tmux new -c -s working
+fi

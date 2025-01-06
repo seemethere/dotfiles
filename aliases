@@ -46,6 +46,8 @@ alias ga="git add"
 alias gc="git commit -v"
 alias gp="git push"
 
+alias nvenv="python3 -m venv .venv && . .venv/bin/activate"
+
 vagrant-kill-all() {
 	for i in $(vagrant global-status | grep virtualbox | awk '{ print $1 }'); do
 		vagrant destroy -f "$i"
@@ -54,14 +56,4 @@ vagrant-kill-all() {
 
 add-upstream-remote() {
 	git remote add upstream "git@github.com:$1"
-}
-
-working() {
-	# Drop myself into a running tmux session called working
-	# TODO: Add a local setup script in order to initialize local vars
-
-	# Note to self: -d is a good flag since it allows for aggresive resizing
-	if ! tmux a -d -t working >/dev/null 2>/dev/null; then
-		tmux new -s working
-	fi
 }
