@@ -5,6 +5,8 @@ TMP_DIR=$(mktemp -d)
 trap 'rm -rf ${TMP_DIR};cd ${ORIG_DIR}' EXIT
 
 echo "-_-_- ENTERING TEMP WORKSPACE -_-_-"
-pushd "${TMP_DIR}" || exit
-${SHELL}
+(
+  pushd "${TMP_DIR}" || exit
+  TMP_DIR="${TMP_DIR}" ${SHELL}
+)
 echo "-_-_- EXITING TEMP WORKSPACE -_-_-"
