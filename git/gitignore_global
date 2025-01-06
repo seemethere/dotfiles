@@ -43,6 +43,7 @@ Thumbs.db
 
 venv
 .venv
+.venv*
 .env
 
 __pycache__
