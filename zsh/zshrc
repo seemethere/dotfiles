@@ -111,9 +111,12 @@ source_if_exists /usr/share/fzf/shell/key-bindings.zsh
 source_if_exists /usr/share/zsh/site-functions/fzf
 
 # source things in homebrew site-functions
-for file in ~/homebrew/share/zsh/site-functions/*; do
-  source ${file} >/dev/null 2>/dev/null
-done
+if brew --prefix >/dev/null 2>/dev/null; then
+  BREW_PREFIX=$(brew --prefix)
+  for file in "${BREW_PREFIX}"/share/zsh/site-functions/*; do
+    source "${file}" >/dev/null 2>/dev/null
+  done
+fi
 
 # Immediately append to the history file, not just when a term is killed
 setopt incappendhistory
