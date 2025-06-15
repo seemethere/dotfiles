@@ -7,7 +7,5 @@ fi
 # Run a docker container with a shell
 docker run --rm -it \
     -v "$(pwd):/v" -w /v \
-    -v "${SSH_AUTH_SOCK}":/ssh_auth_sock \
-    -e SSH_AUTH_SOCK=/ssh_auth_sock \
     "$1" \
     sh -c 'if [ -e /bin/bash ]; then /bin/bash; else /bin/sh; fi'
