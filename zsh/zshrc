@@ -46,7 +46,10 @@ path_if_exists ~/homebrew/bin
 path_if_exists ~/homebrew/sbin
 
 local MAIN_EDITOR="vim"
-if [[ $(hash nvim 2>/dev/null) != 0 ]];then
+# Check if parent process is Cursor
+if [[ "$(ps -o comm= -p $PPID)" == *"Cursor Helper"* ]]; then
+    MAIN_EDITOR="cursor --wait"
+elif [[ $(hash nvim 2>/dev/null) != 0 ]];then
     MAIN_EDITOR="nvim"
 fi
 
@@ -105,10 +108,10 @@ zplug load
 # Sourcing stuff if they're there
 # ================================================================
 # source fzf if it exists
-source_if_exists ~/.fzf.zsh
+if fzf --zsh >/dev/null 2>/dev/null; then
+  source <(fzf --zsh)
+fi
 source_if_exists ~/.cargo/env
-source_if_exists /usr/share/fzf/shell/key-bindings.zsh
-source_if_exists /usr/share/zsh/site-functions/fzf
 
 # source things in homebrew site-functions
 if brew --prefix >/dev/null 2>/dev/null; then
@@ -160,6 +163,7 @@ else
     # When in a tmux session default to this ssh auth sock
     export SSH_AUTH_SOCK="${LOCAL_SSH_AUTH_SOCK}"
 fi
+
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"
