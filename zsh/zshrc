@@ -71,38 +71,29 @@ source_if_exists ~/.aliases-local
 # ================================================================
 # Plugins
 # ================================================================
-# load zplug if it doesn't exist
-if [[ ! -d ~/.zplug ]];then
-    git clone https://github.com/b4b4r07/zplug ~/.zplug
+# load zinit if it doesn't exist
+if [[ ! -d ~/.local/share/zinit/zinit.git ]];then
+    mkdir -p ~/.local/share/zinit
+    git clone https://github.com/zdharma-continuum/zinit.git ~/.local/share/zinit/zinit.git
 fi
-source ~/.zplug/init.zsh
-# Let zplug manage zplug
-zplug 'zplug/zplug', hook-build:'zplug --self-manage'
+source ~/.local/share/zinit/zinit.git/zinit.zsh
 # Async for zsh, used by pure
-zplug "mafredri/zsh-async", from:github, defer:0
+zinit ice wait"0" lucid
+zinit load "mafredri/zsh-async"
 # Load completion library for those sweet [tab] squares
-zplug "lib/completion", from:oh-my-zsh
+zinit snippet OMZL::completion.zsh
 # Up -> History search! Who knew it wasn't a built in?
-zplug "lib/key-bindings", from:oh-my-zsh
+zinit snippet OMZL::key-bindings.zsh
 # History defaults
-zplug "lib/history", from:oh-my-zsh
+zinit snippet OMZL::history.zsh
 # gst, gco, gc -> All the git shortcut goodness
-zplug "plugins/git", from:oh-my-zsh
-# conda zshell completion
-zplug "esc/conda-zsh-completion", from:github
+zinit snippet OMZP::git
 # Syntax highlighting for commands
-zplug "zdharma/fast-syntax-highlighting", from:github, defer:3
+zinit ice wait"3" lucid
+zinit load "zdharma-continuum/fast-syntax-highlighting"
 # Theme!
-zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-# Actually install plugins, prompt user input
-if ! zplug check --verbose; then
-    printf "Install zplug plugins? [y/N]: "
-    if read -q; then
-        echo; zplug install
-    fi
-fi
-
-zplug load
+zinit ice pick"async.zsh" src"pure.zsh"
+zinit load "sindresorhus/pure"
 
 # ================================================================
 # Sourcing stuff if they're there
