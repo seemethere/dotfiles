@@ -155,6 +155,10 @@ else
     export SSH_AUTH_SOCK="${LOCAL_SSH_AUTH_SOCK}"
 fi
 
+if kubectl completion zsh >/dev/null 2>/dev/null; then
+  eval "$(kubectl completion zsh)"
+fi
+
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"

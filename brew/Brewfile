@@ -1,0 +1,17 @@
+# needed for neovim
+brew "nodejs"
+brew "neovim"
+brew "fzf"
+brew "btop"
+
+# build stuff
+brew "cmake"
+brew "ninja"
+brew "uv"
+
+# container stuff
+brew "colima"
+brew "docker"
+brew "kubectl"
+brew "k3d"
+brew "k9s"
