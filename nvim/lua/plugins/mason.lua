@@ -1,16 +1,15 @@
 return {
-  "williamboman/mason.nvim",
+  "mason-org/mason.nvim",
   opts = {
     ensure_installed = {
-      "black",
       "clangd",
       "eslint-lsp",
       "json-lsp",
       "lua-language-server",
       "luacheck",
-      "luacheck",
       "luaformatter",
       "python-lsp-server",
+      "ruff",
       "rust-analyzer",
       "shellcheck",
       "shfmt",
