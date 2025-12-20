@@ -15,3 +15,8 @@ brew "docker"
 brew "kubectl"
 brew "k3d"
 brew "k9s"
+brew "fluxcd/tap/flux"
+
+# AWS Specific things
+brew "awscli"
+brew "aws-iam-authenticator"
