@@ -24,6 +24,12 @@ path_if_exists() {
     fi
 }
 
+enable_k8_completion() {
+  if $1 completion zsh >/dev/null 2>/dev/null; then
+    source <($1 completion zsh)
+  fi
+}
+
 # Path stuff
 export TERM="xterm-256color"
 
@@ -38,6 +44,8 @@ path_if_exists ~/.local/bin
 path_if_exists ~/.cargo/bin
 
 path_if_exists /usr/local/sbin/
+
+path_if_exists ~/.krew/bin/
 
 # Add all the potential homebrew paths
 path_if_exists /opt/homebrew/bin
@@ -155,11 +163,15 @@ else
     export SSH_AUTH_SOCK="${LOCAL_SSH_AUTH_SOCK}"
 fi
 
-if kubectl completion zsh >/dev/null 2>/dev/null; then
-  eval "$(kubectl completion zsh)"
-fi
+enable_k8_completion kubectl
+enable_k8_completion flux
+enable_k8_completion k3d
+enable_k8_completion eksctl
+enable_k8_completion k9s
 
 
 if [[ -n "$BENCHMARK" ]];then
     zprof > "$HOME/.zsh_benchmark"
 fi
+
+. "$HOME/.cargo/env"
