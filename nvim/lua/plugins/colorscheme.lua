@@ -1,26 +1,15 @@
 return {
     {
-        "catppuccin/nvim",
-        name = "catppuccin",
+        "ellisonleao/gruvbox.nvim",
         lazy = false,
         priority = 1000,
         opts = {
-            flavour = "mocha",
-            transparent_background = false,
-            integrations = {
-                gitsigns = true,
-                mason = true,
-                neotree = true,
-                telescope = true,
-                treesitter = true,
-                native_lsp = {
-                    enabled = true,
-                },
-            },
+            contrast = "hard",
+            transparent_mode = false,
         },
         config = function(_, opts)
-            require("catppuccin").setup(opts)
-            vim.cmd.colorscheme("catppuccin")
+            require("gruvbox").setup(opts)
+            vim.cmd.colorscheme("gruvbox")
         end,
     },
 }
