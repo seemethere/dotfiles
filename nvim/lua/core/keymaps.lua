@@ -1,35 +1,36 @@
 -- Global keymaps (non-plugin specific)
-local keymap = vim.keymap.set
-local opts = { noremap = true, silent = true }
+local function map(mode, lhs, rhs, desc)
+    vim.keymap.set(mode, lhs, rhs, { noremap = true, silent = true, desc = desc })
+end
 
 -- Window navigation (fallback when not in tmux)
-keymap("n", "<C-h>", "<C-w>h", opts)
-keymap("n", "<C-j>", "<C-w>j", opts)
-keymap("n", "<C-k>", "<C-w>k", opts)
-keymap("n", "<C-l>", "<C-w>l", opts)
+map("n", "<C-h>", "<C-w>h", "Go to left window")
+map("n", "<C-j>", "<C-w>j", "Go to lower window")
+map("n", "<C-k>", "<C-w>k", "Go to upper window")
+map("n", "<C-l>", "<C-w>l", "Go to right window")
 
 -- Buffer navigation
-keymap("n", "<S-h>", "<cmd>bprevious<cr>", opts)
-keymap("n", "<S-l>", "<cmd>bnext<cr>", opts)
+map("n", "<S-h>", "<cmd>bprevious<cr>", "Previous buffer")
+map("n", "<S-l>", "<cmd>bnext<cr>", "Next buffer")
 
 -- Resize splits with arrows
-keymap("n", "<C-Up>", "<cmd>resize +2<cr>", opts)
-keymap("n", "<C-Down>", "<cmd>resize -2<cr>", opts)
-keymap("n", "<C-Left>", "<cmd>vertical resize -2<cr>", opts)
-keymap("n", "<C-Right>", "<cmd>vertical resize +2<cr>", opts)
+map("n", "<C-Up>", "<cmd>resize +2<cr>", "Increase window height")
+map("n", "<C-Down>", "<cmd>resize -2<cr>", "Decrease window height")
+map("n", "<C-Left>", "<cmd>vertical resize -2<cr>", "Decrease window width")
+map("n", "<C-Right>", "<cmd>vertical resize +2<cr>", "Increase window width")
 
 -- Better indenting in visual mode
-keymap("v", "<", "<gv", opts)
-keymap("v", ">", ">gv", opts)
-keymap("v", "<Tab>", ">gv", opts)
-keymap("v", "<S-Tab>", "<gv", opts)
+map("v", "<", "<gv", "Outdent and reselect")
+map("v", ">", ">gv", "Indent and reselect")
+map("v", "<Tab>", ">gv", "Indent and reselect")
+map("v", "<S-Tab>", "<gv", "Outdent and reselect")
 
 -- Clear search highlight
-keymap("n", "<Esc>", "<cmd>nohlsearch<cr>", opts)
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", "Clear search highlight")
 
 -- Equalize splits
-keymap("n", "<leader>=", "<C-w>=", opts)
+map("n", "<leader>=", "<C-w>=", "Equalize splits")
 
 -- Horizontal scrolling
-keymap("n", "zl", "zL", opts)
-keymap("n", "zh", "zH", opts)
+map("n", "zl", "zL", "Scroll window right")
+map("n", "zh", "zH", "Scroll window left")

@@ -42,16 +42,18 @@ return {
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
                 callback = function(event)
-                    local opts = { buffer = event.buf, silent = true }
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-                    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
-                    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+                    local function map(mode, lhs, rhs, desc)
+                        vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, silent = true, desc = desc })
+                    end
+                    map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+                    map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+                    map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
+                    map("n", "gr", vim.lsp.buf.references, "Go to references")
+                    map("n", "K", vim.lsp.buf.hover, "Hover documentation")
+                    map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+                    map("n", "<leader>ca", vim.lsp.buf.code_action, "Code action")
+                    map("n", "[d", vim.diagnostic.goto_prev, "Previous diagnostic")
+                    map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
                 end,
             })
 
@@ -149,6 +151,11 @@ return {
                         },
                     },
                 }),
+            })
+
+            -- Disable autocompletion in wiki files
+            cmp.setup.filetype("vimwiki", {
+                enabled = false,
             })
         end,
     },
